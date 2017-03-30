@@ -8,8 +8,9 @@ package projectzombie.game;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.scene.canvas.GraphicsContext;
-import projectzombie.gameobjects.Enemie;
-import projectzombie.gameobjects.GameObject;
+import projectzombie.gameobjects.*;
+import projectzombie.gameobjects.Character;
+
 import projectzombie.motor.Window;
 
 /**
@@ -26,10 +27,6 @@ public class Game {
         this.contextoGrafico = contextoGrafico;
         this.objetosJuego = objetosJuego;
         this.window = window;
-        velX = 0;
-        velY = 0;
-        posX = 100;
-        posY = 200;
     }
 
     public void renderAll() {
@@ -38,21 +35,20 @@ public class Game {
         }
 
     }
-    int k = 0;
-
-    int velX;
-    int velY;
-
-    int posX;
-    int posY;
-
-    public void updateAll(float interval) {
+ 
+    public void updateAll(double interval) {
         
         //POSIBLE IMPLEMENTACIÓN, PASAR ARRAYLIST DE STRING INPUT A BYTES,
         // RESTRINGIGIR VALORES 
+        
         if (!objetosJuego.isEmpty()) {
             for (GameObject go : objetosJuego) {
-                go.update(window.input);
+                if (go instanceof Character) {
+                    go.update(window.input);
+                } else{
+                    go.update(interval);
+                    
+                }
             }
         }
     }

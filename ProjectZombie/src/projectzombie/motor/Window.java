@@ -122,10 +122,8 @@ public class Window extends Application {
         }
         );
 
-        System.out.println("Hola, me encuentro en la ventana");
         primaryStage.show();
-        System.out.println(" Esto es post ventana.");
-
+        System.out.println("VENTANA MOSTRADA");
         GameInit.darConextoGrafico(gc);
         gcReady = true;
     }

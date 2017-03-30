@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import projectzombie.Utils.Maths;
+import projectzombie.game.GameInit;
 
 /**
  *
@@ -34,11 +35,13 @@ public class Zombie extends Enemie {
     }
 
     @Override
-    public void update(ArrayList<Byte> input) {
+    public void update(double interval) {
 //        && input.get(0).equals("SPACE")
-        if (!input.isEmpty()) {
-            this.setLocation(this.positionBox.x += Maths.genRandom(-2, 2), this.positionBox.y += Maths.genRandom(-2, 2));
-        }
-
+//         if (!input.isEmpty()) {
+            float value = (float) (30 * interval);// una vez esto sea mayor a uno se lanza como un loco.
+            positionBox.x = (int)(positionBox.x + value);
+            this.setXLocation((int)(positionBox.x * interval));
+        
+//        }
     }
 }

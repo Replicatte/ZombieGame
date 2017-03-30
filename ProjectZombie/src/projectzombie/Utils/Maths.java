@@ -27,9 +27,9 @@ public class Maths {
      */
     public static byte normalize(byte valor) {
         if (valor > 0) {
-            valor-=2;
+            valor-=1;
         } else if (valor < 0) {
-            valor+=2;
+            valor+=1;
         }
         return valor;
     }

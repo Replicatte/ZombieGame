@@ -54,11 +54,11 @@ public class GameLoop extends Thread {
 
     protected void gameLoop() {
 
-        float elapsedTime;
+        double elapsedTime;
 
-        float accumulator = 0f;
+        double accumulator = 0f;
 
-        float interval = 1f / TARGET_UPS;
+        double interval = 1f / TARGET_UPS;
 
         boolean running = true;
 
@@ -74,12 +74,11 @@ public class GameLoop extends Thread {
 //                System.out.println("INPUT NO VACIA EN LOOP :D" + window.input);
 //            }
 
-            while (accumulator >= interval) {
+            while (accumulator >= interval ) {
                 ourGame.updateAll(interval);
                 accumulator -= interval;
 
             }
-            
           
             
             
@@ -93,7 +92,7 @@ public class GameLoop extends Thread {
 
     private void sync() {
 
-        float loopSlot = 1f / TARGET_FPS;
+        double loopSlot = 1f / TARGET_FPS;
 
         double endTime = timer.getLastLoopTime() + loopSlot;
 
