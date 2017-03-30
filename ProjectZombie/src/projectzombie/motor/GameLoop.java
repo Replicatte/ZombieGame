@@ -6,6 +6,8 @@
 package projectzombie.motor;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import projectzombie.game.Game;
 import projectzombie.motor.Timer;
 
@@ -15,7 +17,7 @@ import projectzombie.motor.Timer;
  */
 public class GameLoop extends Thread {
 
-    public static final int TARGET_FPS = 30;
+    public static final int TARGET_FPS = 60;
 
     public static final int TARGET_UPS = 30;
 
@@ -40,7 +42,7 @@ public class GameLoop extends Thread {
     @Override
     public void run() {
         try {
-            gameLoop();
+            gameLoop2();
 
         } catch (Exception excp) {
 
@@ -52,13 +54,48 @@ public class GameLoop extends Thread {
 
     }
 
+    int lastFpsTime;
+    int fps;
+
+    protected void gameLoop2() {
+        long lastLoopTime = System.nanoTime();
+        final int TARGET_FPS = 60;
+        final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+        while (true) {
+            long now = System.nanoTime();
+            long updateLength = now - lastLoopTime;
+            lastLoopTime = now;
+            double delta = updateLength / ((double) OPTIMAL_TIME);
+            lastFpsTime += updateLength;
+            fps++;
+
+            if (lastFpsTime >= 1000000000) {
+
+            }
+            {
+                System.out.println("(FPS: " + fps + ")");
+                lastFpsTime = 0;
+                fps = 0;
+            }
+            ourGame.updateAll(delta);
+            ourGame.renderAll();
+
+            try {
+                Thread.sleep((lastLoopTime - System.nanoTime() + OPTIMAL_TIME) / 1000000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+
     protected void gameLoop() {
 
         double elapsedTime;
 
         double accumulator = 0f;
 
-        double interval = 1f / TARGET_UPS;
+        double interval = 1f / TARGET_UPS;//Número renders per update?
 
         boolean running = true;
 
@@ -73,15 +110,19 @@ public class GameLoop extends Thread {
 //            if (window.input!= null){ 
 //                System.out.println("INPUT NO VACIA EN LOOP :D" + window.input);
 //            }
-
-            while (accumulator >= interval ) {
+//            
+            while (accumulator >= interval) {
                 ourGame.updateAll(interval);
                 accumulator -= interval;
-//El interval en aquest cas sempre sera 0,03
+// inteval sempre 0,03
+
             }
-          
-            
-            
+//            int k = 0;
+//            while (k < TARGET_UPS) {
+//                ourGame.updateAll(interval);
+//                k++;
+//            }
+
             ourGame.renderAll();
 
             sync();

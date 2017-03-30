@@ -41,13 +41,14 @@ public class GameObject {
 //       }
     }
     
-    public void update(ArrayList<Byte> input){
+    public void update(short input){
         
     }
     
     public void update(){
         
     }
+    
     
     public void update(double interval){
         
