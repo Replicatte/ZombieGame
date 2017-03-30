@@ -77,7 +77,7 @@ public class GameLoop extends Thread {
             while (accumulator >= interval ) {
                 ourGame.updateAll(interval);
                 accumulator -= interval;
-
+//El interval en aquest cas sempre sera 0,03
             }
           
             

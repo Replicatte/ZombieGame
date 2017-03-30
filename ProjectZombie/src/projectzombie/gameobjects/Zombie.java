@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import projectzombie.Fisicas.ChrPhys;
 import projectzombie.Utils.Maths;
 import projectzombie.game.GameInit;
 
@@ -22,10 +23,15 @@ public class Zombie extends Enemie {
 //     Rectangle positionBox;
 //    
 //     byte estadoObjecto;
+    
+    private ChrPhys fisicas;
 
     public Zombie(Rectangle colisionBox, Rectangle postionBox, byte estadoObjecto) {
         super(colisionBox, postionBox, estadoObjecto);
         this.hasColision = 1;
+        fisicas = new ChrPhys();
+        fisicas.velX = 4;
+        fisicas.velY = 4;
     }
 
     @Override
@@ -36,12 +42,10 @@ public class Zombie extends Enemie {
 
     @Override
     public void update(double interval) {
-//        && input.get(0).equals("SPACE")
-//         if (!input.isEmpty()) {
-            float value = (float) (30 * interval);// una vez esto sea mayor a uno se lanza como un loco.
-            positionBox.x = (int)(positionBox.x + value);
-            this.setXLocation((int)(positionBox.x * interval));
         
-//        }
+            //Soles compte amb el postion.x de moment
+            
+            this.setXLocation(positionBox.x );
+        
     }
 }
