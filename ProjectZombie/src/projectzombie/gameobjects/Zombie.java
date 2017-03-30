@@ -25,13 +25,14 @@ public class Zombie extends Enemie {
 //     byte estadoObjecto;
     
     private ChrPhys fisicas;
-
+    double value;
     public Zombie(Rectangle colisionBox, Rectangle postionBox, byte estadoObjecto) {
         super(colisionBox, postionBox, estadoObjecto);
         this.hasColision = 1;
         fisicas = new ChrPhys();
-        fisicas.velX = 4;
-        fisicas.velY = 4;
+        fisicas.velX = 1;
+        fisicas.velY = 1;
+        value = postionBox.x;
     }
 
     @Override
@@ -39,13 +40,21 @@ public class Zombie extends Enemie {
         gc.setFill(Color.GREEN);
         gc.fillRect(this.positionBox.getX(), this.positionBox.getY(), this.positionBox.getWidth(), this.positionBox.getHeight());
     }
-
+   int mod = 1;
     @Override
     public void update(double interval) {
         
             //Soles compte amb el postion.x de moment
-            
-            this.setXLocation(positionBox.x );
+            //value ==> positionBox.x en double
+            value += (fisicas.velX * interval) * mod;
+            positionBox.x = Math.round(Math.round(value));
+            if(value > 1000){
+                System.out.println("OutOfBorders");
+                mod = -1;
+            }else if(value<0){
+                mod = 1;
+            }
+            this.setXLocation(positionBox.x);
         
     }
 }
