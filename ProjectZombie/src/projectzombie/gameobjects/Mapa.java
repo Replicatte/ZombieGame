@@ -22,7 +22,7 @@ public class Mapa extends GameObject {
 
     public void renderTest(GraphicsContext gc) {
 
-        gc.setFill(Color.LIGHTGRAY);
+        gc.setFill(Color.SALMON);
 
         gc.fillRect(0,0,Window.SCREEN_WIDTH, Window.SCREEN_HEIGHT);
     }

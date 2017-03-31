@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import projectzombie.Fisicas.ChrPhys;
 import projectzombie.Utils.Maths;
 import projectzombie.game.GameInit;
+import projectzombie.motor.Window;
 
 /**
  *
@@ -23,16 +24,16 @@ public class Zombie extends Enemie {
 //     Rectangle positionBox;
 //    
 //     byte estadoObjecto;
-    
+
     private ChrPhys fisicas;
-    double value;
+
     public Zombie(Rectangle colisionBox, Rectangle postionBox, byte estadoObjecto) {
         super(colisionBox, postionBox, estadoObjecto);
         this.hasColision = 1;
         fisicas = new ChrPhys();
-        fisicas.velX = 1;
-        fisicas.velY = 1;
-        value = postionBox.x;
+        fisicas.velX = 4;
+        fisicas.velY = 4;
+
     }
 
     @Override
@@ -40,21 +41,28 @@ public class Zombie extends Enemie {
         gc.setFill(Color.GREEN);
         gc.fillRect(this.positionBox.getX(), this.positionBox.getY(), this.positionBox.getWidth(), this.positionBox.getHeight());
     }
-   int mod = 1;
+    int modX = 1;
+    int modY = 1;
+
     @Override
     public void update(double interval) {
+
+        if (positionBox.x > Window.SCREEN_WIDTH - 64) {
+            modX = -1;
+        } else if (positionBox.x < 0) {
+            modX = 1;
+        }
         
-            //Soles compte amb el postion.x de moment
-            //value ==> positionBox.x en double
-            value += (fisicas.velX * interval) * mod;
-            positionBox.x = Math.round(Math.round(value));
-            if(value > 1000){
-                System.out.println("OutOfBorders");
-                mod = -1;
-            }else if(value<0){
-                mod = 1;
-            }
-            this.setXLocation(positionBox.x);
+        if (positionBox.y > Window.SCREEN_HEIGHT - 64) {
+            modY = -1;
+        } else if (positionBox.y < 0) {
+            modY = 1;
+        }
         
+        positionBox.x = positionBox.x + (fisicas.velX * modX);
+        positionBox.y = positionBox.y + (fisicas.velY * modY);
+        
+        
+        this.setLocation(positionBox.x, positionBox.y);
     }
 }
