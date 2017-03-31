@@ -49,7 +49,7 @@ public class GameInit {
         }.start();
 
         System.out.println("--------------INICIO ESPERA------------------");
-        
+
         long k = 1;
         while (!gcReady) {
             System.out.println("Pasada Bucle num: -" + k);
@@ -66,18 +66,21 @@ public class GameInit {
         ArrayList<GameObject> ago = new ArrayList<>();
 
         //Creación de GameObject y pasarselos a GAME
-        Character chara = new Character(new Rectangle(50, 50), new Rectangle(100, 300, 64, 64), (byte) 0);
-        Zombie zombie1 = new Zombie(new Rectangle(50, 50), new Rectangle(100, 200, 64, 64), (byte) 0);
-        Mapa map = new Mapa(new Rectangle(50, 50), new Rectangle(100, 200, 200, 200), (byte) 0);
+        Character chara = new Character(new Rectangle(50, 50),
+                new Rectangle(Window.SCREEN_WIDTH>>1-64, 
+                        Window.SCREEN_HEIGHT>>1-64, 64, 64), (byte) 0);
+        Zombie zombie1 = new Zombie(new Rectangle(50, 50), 
+                new Rectangle(100, 200, 64, 64), (byte) 0);
+        Mapa map = new Mapa(new Rectangle(50, 50), 
+                new Rectangle(100, 200, 200, 200), (byte) 0);
         ago.add(map);
         ago.add(chara);
         ago.add(zombie1);
-        
+
         Game juego = new Game(contextoGrafico, ago, w);
 
         GameLoop bucleJuego = new GameLoop(new Timer(), juego, w);
-        
-        
+
         bucleJuego.start();
 
     }

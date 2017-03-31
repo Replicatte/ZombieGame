@@ -159,6 +159,7 @@ public class Character extends GameObject {
 
     @Override
     public void renderTest(GraphicsContext gc) {
+
         gc.setFill(Color.BLUE);
 
         gc.fillRect(positionBox.getX(), positionBox.getY(), positionBox.getWidth(), positionBox.getHeight());
@@ -225,6 +226,7 @@ public class Character extends GameObject {
                     },
                     3);
         }
+
     }
 
 }

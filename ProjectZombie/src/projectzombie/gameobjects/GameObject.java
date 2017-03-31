@@ -41,7 +41,7 @@ public class GameObject {
 //       }
     }
     
-    public void update(short input){
+    public void update(double input){
         
     }
     
@@ -50,7 +50,7 @@ public class GameObject {
     }
     
     
-    public void update(double interval){
+    public void update(ArrayList<Byte> interval){
         
     }
 
@@ -60,6 +60,9 @@ public class GameObject {
 
     public void setXLocation(int x) {
         this.positionBox.setLocation(x, this.positionBox.y);
+    }
+    public void setYLocation(int y) {
+        this.positionBox.setLocation(this.positionBox.x, y);
     }
 
 }
