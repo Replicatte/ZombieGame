@@ -5,13 +5,16 @@
  */
 package projectzombie.game;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import projectzombie.gameobjects.*;
 import projectzombie.gameobjects.Character;
 
 import projectzombie.motor.Window;
+import static projectzombie.motor.Window.input;
 
 /**
  *
@@ -30,6 +33,7 @@ public class Game {
     }
 
     public void renderAll() {
+        
         for (GameObject obj : objetosJuego) {
             obj.renderTest(contextoGrafico);
         }

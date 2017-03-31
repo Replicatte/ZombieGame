@@ -26,15 +26,15 @@ import static projectzombie.game.GameInit.gcReady;
  */
 public class Window extends Application {
 
-    public static ArrayList<Byte> input;
-
+    public static short input;
+    
     GraphicsContext gc;
 
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;
 
     public static void principal(String[] args) {
-        input = new ArrayList<>();
+        input = (short)0b1000000000000000;
 
         launch(args);
     }
@@ -66,30 +66,27 @@ public class Window extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-
-                Byte byteCode = -1;
-
                 switch (event.getCode()) {
-                    case A:
-                        byteCode = 0;
+                    case A://posicion 0 input
+                        if((input & 0b1)== 0){
+                            ++input;
+                        }
                         break;
-                    case D:
-                        byteCode = 1;
+                    case D://posicion 2 input
+                        if((input & 0b10) == 0){
+                            input += 2;
+                        }
                         break;
-                    case W:
-                        byteCode = 2;
+                    case W://posicion 3
+                        if((input & 0b100) == 0){
+                            input += 4;
+                        }
                         break;
-                    case S:
-                        byteCode = 3;
+                    case S://posicion 4
+                        if((input & 0b1000) == 0){
+                            input += 8;
+                        }
                         break;
-                    default:
-                        byteCode = -1;
-                        throw new AssertionError(event.getCode().name());
-                }
-
-                if (!input.contains(byteCode)) {
-                    input.add(byteCode);
-//                    System.out.println("INPUT AÑADIDA ->" + input.toString() );//aço si es pilla
                 }
             }
         }
@@ -98,26 +95,21 @@ public class Window extends Application {
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-//                System.out.println("INPUT BORRADA ->" + code );//aço si es pilla
-                Byte byteCode = -1;
+//                System.out.println("INPUT BORRADA ->" + code );//aço si es pilla      
                 switch (event.getCode()) {
                     case A:
-                        byteCode = 0;
+                        --input;
                         break;
                     case D:
-                        byteCode = 1;
+                        input -= 2;
                         break;
                     case W:
-                        byteCode = 2;
+                        input -= 4;
                         break;
                     case S:
-                        byteCode = 3;
+                        input -= 8;
                         break;
-                    default:
-                        byteCode = -1;
-                        throw new AssertionError(event.getCode().name());
                 }
-                input.remove(byteCode);
             }
         }
         );

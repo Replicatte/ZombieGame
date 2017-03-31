@@ -69,10 +69,7 @@ public class GameLoop extends Thread {
             lastFpsTime += updateLength;
             fps++;
 
-            if (lastFpsTime >= 1000000000) {
-
-            }
-            {
+            if (lastFpsTime >= 1000000000){
                 System.out.println("(FPS: " + fps + ")");
                 lastFpsTime = 0;
                 fps = 0;
@@ -81,7 +78,13 @@ public class GameLoop extends Thread {
             ourGame.renderAll();
 
             try {
-                Thread.sleep((lastLoopTime - System.nanoTime() + OPTIMAL_TIME) / 1000000);
+                long tiempoEsperaReal = lastLoopTime - System.nanoTime();
+                if(tiempoEsperaReal < 0){
+                    tiempoEsperaReal = 0;
+                }
+                Thread.sleep(tiempoEsperaReal + OPTIMAL_TIME / 1000000);
+                
+                
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
             }

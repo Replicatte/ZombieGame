@@ -6,11 +6,12 @@
 package projectzombie.gameobjects;
 
 import java.awt.Rectangle;
-import java.util.ArrayList;
+import java.math.BigInteger;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import projectzombie.Fisicas.ChrPhys;
 import projectzombie.Utils.Maths;
+import static projectzombie.motor.Window.input;
 
 /**
  *
@@ -51,117 +52,98 @@ public class Character extends GameObject {
     }
     private static final int pasoUpdate = 8;
 
-    private boolean dirizq = true;
-    private boolean dirarriba = true;
+    
+    public void update(short input) {
+        if ((0b1000000000000000 & input) == 0b1000000000000000) {
+          
+            switch ((0b0000000000001111 & input)) {
+                
+                //Se mueve Izquierda
+                case 0b1101:
+                case 0b1:
+                    fisicas.velX = -pasoUpdate;
+                    fisicas.velY = 0;
+                    estadoObjecto = 0;
+                    break;
+                
+                //Se mueve Derecha    
+                case 0b1110:
+                case 0b10:
+                    fisicas.velX = pasoUpdate;
+                    fisicas.velY = 0;
+                    estadoObjecto = 4;
+                    break;
 
-    public void update(ArrayList<Byte> input) {
-        if (!input.isEmpty()) {
+                //Se mueve Up    
+                case 0b111:
+                case 0b100:
+                    fisicas.velY = -pasoUpdate;
+                    fisicas.velX = 0;
+                    estadoObjecto = 8;
+                    break;
+                
+                //Se mueve Down    
+                case 0b1011:
+                case 0b1000:
+                    fisicas.velY = pasoUpdate;
+                    fisicas.velX = 0;
+                    estadoObjecto = 12;
+                    break;
+                
+                //Se mueve en Izquierda - Up    
+                case 0b101:
+                    fisicas.velY = -pasoUpdate;
+                    fisicas.velX = -pasoUpdate;
+                    estadoObjecto = 16;
+                    break;
+                   
+                //Se mueve en Izquierda - Down
+                case 0b1001:
+                    fisicas.velY = pasoUpdate;
+                    fisicas.velX = -pasoUpdate;
+                    estadoObjecto = 20;
+                    break;
+                    
+                //Se mueve en Derecha - Up    
+                case 0b110:
+                    fisicas.velY = -pasoUpdate;
+                    fisicas.velX = +pasoUpdate;
+                    estadoObjecto = 24;
+                    break;
+                
+                //Se mueve en Derecha - Down    
+                case 0b1010:
+                    fisicas.velY = +pasoUpdate;
+                    fisicas.velX = +pasoUpdate;
+                    estadoObjecto = 28;
+                    break;
 
-            if (input.size() >= 2 && (fisicas.velX < 100 && fisicas.velY < 100)) {
-                switch (input.get(0)) {
-                    case 0:
-                        fisicas.velX = -pasoUpdate;
-                        dirizq = true;
-                        break;
-                    case 1:
-                        fisicas.velX = pasoUpdate;
-                        dirizq = false;
-                        break;
-                    case 2:
-                        fisicas.velY = -pasoUpdate;
-                        dirarriba = true;
-                        break;
-                    case 3:
-                        fisicas.velY = pasoUpdate;
-                        dirarriba = false;
-                        break;
-
-                }
-                switch (input.get(1)) {
-                    case 0:
-                        fisicas.velX = -pasoUpdate;
-                        dirizq = true;
-                        break;
-                    case 1:
-                        fisicas.velX = pasoUpdate;
-                        dirizq = false;
-                        break;
-                    case 2:
-                        fisicas.velY = -pasoUpdate;
-                        dirarriba = true;
-                        break;
-                    case 3:
-                        fisicas.velY = pasoUpdate;
-                        dirarriba = false;
-                        break;
-
-                }
-
-                if (dirizq) {
-                    if (dirarriba) {
-                        //izqtop
-                        estadoObjecto = 16;
-                    } else {  //izqdown
-
-                        estadoObjecto = 20;
-                    }
-                }
-                if (!dirizq) {
-                    if (dirarriba) {
-                        //dertop
-                        estadoObjecto = 24;
-                    } else { //derbajo
-                        estadoObjecto = 28;
-                    }
-
-                }
-
-            } else {//Solo presionado un boton
-
-                if (fisicas.velX < 100 && fisicas.velY < 100) {
-
-                    switch (input.get(0)) {
-                        case 0:
-                            fisicas.velX = -pasoUpdate;
-                            fisicas.velY = 0;
-                            estadoObjecto = 0;
-                            break;
-
-                        case 1:
-                            fisicas.velX = pasoUpdate;
-                            fisicas.velY = 0;
-                            estadoObjecto = 4;
-                            break;
-
-                        case 2:
-                            fisicas.velY = -pasoUpdate;
-                            fisicas.velX = 0;
-                            estadoObjecto = 8;
-                            break;
-
-                        case 3:
-                            fisicas.velY = pasoUpdate;
-                            fisicas.velX = 0;
-                            estadoObjecto = 12;
-                            break;
-                    }
-                }
+                //No se Mueve nada    
+                case 0b11:
+                case 0b1100:
+                case 0b1111:    
+                case 0:
+                    fisicas.velX = Maths.normalize(fisicas.velX);
+                    fisicas.velY = Maths.normalize(fisicas.velY);
+                    break;
             }
-            setLocation(this.positionBox.x += fisicas.velX, this.positionBox.y += fisicas.velY);
-
-        } else {
-            fisicas.velX = Maths.normalize(fisicas.velX);
-            fisicas.velY = Maths.normalize(fisicas.velY);
-
             setLocation(this.positionBox.x += fisicas.velX, this.positionBox.y += fisicas.velY);
         }
     }
 
+    private void drawingTest(GraphicsContext gc) {
+
+        gc.setFill(Color.AQUA);
+        gc.fillRect(0, 0, 10, 10);
+
+        gc.setFill(Color.DARKORANGE);
+        gc.fillText(String.format("%016d", new BigInteger(Integer.toBinaryString(input))), 10, 10);
+    }
+
     @Override
     public void renderTest(GraphicsContext gc) {
-
         gc.setFill(Color.BLUE);
-
+        //drawingTest(gc);
         gc.fillRect(positionBox.getX(), positionBox.getY(), positionBox.getWidth(), positionBox.getHeight());
         if (estadoObjecto == 0 || estadoObjecto == 16 || estadoObjecto == 20) //left
         {
@@ -226,7 +208,6 @@ public class Character extends GameObject {
                     },
                     3);
         }
-
     }
 
 }
