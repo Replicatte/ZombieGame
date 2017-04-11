@@ -21,17 +21,17 @@ public class GameObject {
     protected Rectangle colisionBox;
     protected Rectangle positionBox;
 
-    protected byte estadoObjecto;
+    protected byte estadoObjeto;
 
     public GameObject(Rectangle colisionBox, Rectangle postionBox, byte estadoObjecto) {
         this.colisionBox = colisionBox;
         this.positionBox = postionBox;
-        this.estadoObjecto = estadoObjecto;
+        this.estadoObjeto = estadoObjecto;
         this.hasColision = 0;
     }
 
-    public void render(GraphicsContext gc, Image img) {
-
+    public void render(GraphicsContext gc) {
+        //gc.drawImage(,positionBox.x,positionBox.y);
     }
 
     public void renderTest(GraphicsContext gc) {

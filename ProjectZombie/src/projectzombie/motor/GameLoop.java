@@ -147,7 +147,7 @@ public class GameLoop extends Thread {
                 Thread.sleep(1);
 
             } catch (InterruptedException ie) {
-
+                System.out.println("FALLOOOOOOO DE INTERRUPCION");
             }
 
         }

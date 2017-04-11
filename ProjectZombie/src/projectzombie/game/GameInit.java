@@ -17,6 +17,7 @@ import projectzombie.gameobjects.Character;
 import projectzombie.gameobjects.Mapa;
 import projectzombie.gameobjects.Zombie;
 import projectzombie.motor.GameLoop;
+import projectzombie.motor.ImageManager;
 import projectzombie.motor.Timer;
 import projectzombie.motor.Window;
 
@@ -35,7 +36,6 @@ public class GameInit {
     public static boolean gcReady;
 
     public static void iniciarJuego(String[] args) {
-
         gcReady = false;
         //TAL VEZ ANIMACIÓN DE LOADING CON SU PROPIO ESTADO DE JUEGO?
         Window w = new Window();
@@ -48,6 +48,7 @@ public class GameInit {
 
         }.start();
 
+        
         System.out.println("--------------INICIO ESPERA------------------");
 
         long k = 1;
@@ -62,6 +63,7 @@ public class GameInit {
         }
 
         System.out.println("--------------FIN ESPERA--------------------");
+        ImageManager.generateImages();
 
         ArrayList<GameObject> ago = new ArrayList<>();
 

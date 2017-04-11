@@ -9,6 +9,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import projectzombie.gameobjects.*;
 import projectzombie.gameobjects.Character;
@@ -30,28 +32,34 @@ public class Game {
         this.contextoGrafico = contextoGrafico;
         this.objetosJuego = objetosJuego;
         this.window = window;
-    }
-
-    public void renderAll() {
+//        this.contextAux = buffAux.getCanvas().getGraphicsContext2D();
         
+    }
+    
+//    private Image buffAux = new Image(new InputStreamAdapter, Window.SCREEN_WIDTH,Window.SCREEN_HEIGHT, true, true);
+//    private GraphicsContext contextAux;        contextoGrafico.drawImage(buffAux, 0, 0);
+
+    
+    
+    public void renderAll() {
         for (GameObject obj : objetosJuego) {
-            obj.renderTest(contextoGrafico);
+            if (obj instanceof Character){ obj.render(contextoGrafico);
+            }else obj.renderTest(contextoGrafico);
         }
 
     }
- 
+
     public void updateAll(double interval) {
-        
+
         //POSIBLE IMPLEMENTACIÓN, PASAR ARRAYLIST DE STRING INPUT A BYTES,
         // RESTRINGIGIR VALORES 
-        
         if (!objetosJuego.isEmpty()) {
             for (GameObject go : objetosJuego) {
                 if (go instanceof Character) {
                     go.update(window.input);
-                } else{
+                } else {
                     go.update(interval);
-                    
+
                 }
             }
         }

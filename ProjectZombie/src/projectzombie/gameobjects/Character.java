@@ -8,9 +8,12 @@ package projectzombie.gameobjects;
 import java.awt.Rectangle;
 import java.math.BigInteger;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import projectzombie.Fisicas.ChrPhys;
 import projectzombie.Utils.Maths;
+import projectzombie.motor.Animation;
+import projectzombie.motor.ImageManager;
 import static projectzombie.motor.Window.input;
 
 /**
@@ -52,26 +55,25 @@ public class Character extends GameObject {
     }
     private static final int pasoUpdate = 8;
 
-    
     public void update(short input) {
         if ((0b1000000000000000 & input) == 0b1000000000000000) {
-          
+
             switch ((0b0000000000001111 & input)) {
-                
+
                 //Se mueve Izquierda
                 case 0b1101:
                 case 0b1:
                     fisicas.velX = -pasoUpdate;
                     fisicas.velY = 0;
-                    estadoObjecto = 0;
+                    estadoObjeto = 0;
                     break;
-                
+
                 //Se mueve Derecha    
                 case 0b1110:
                 case 0b10:
                     fisicas.velX = pasoUpdate;
                     fisicas.velY = 0;
-                    estadoObjecto = 4;
+                    estadoObjeto = 4;
                     break;
 
                 //Se mueve Up    
@@ -79,49 +81,57 @@ public class Character extends GameObject {
                 case 0b100:
                     fisicas.velY = -pasoUpdate;
                     fisicas.velX = 0;
-                    estadoObjecto = 8;
+                    estadoObjeto = 8;
                     break;
-                
+
                 //Se mueve Down    
                 case 0b1011:
                 case 0b1000:
                     fisicas.velY = pasoUpdate;
                     fisicas.velX = 0;
-                    estadoObjecto = 12;
+                    estadoObjeto = 12;
                     break;
-                
+
                 //Se mueve en Izquierda - Up    
                 case 0b101:
                     fisicas.velY = -pasoUpdate;
                     fisicas.velX = -pasoUpdate;
-                    estadoObjecto = 16;
+                    estadoObjeto = 16;
                     break;
-                   
+
                 //Se mueve en Izquierda - Down
                 case 0b1001:
                     fisicas.velY = pasoUpdate;
                     fisicas.velX = -pasoUpdate;
-                    estadoObjecto = 20;
+                    if (estadoObjeto < 20 || estadoObjeto > 23) {
+                        estadoObjeto = 24;
+                    } else {
+                        estadoObjeto++;
+                    }
                     break;
-                    
+
                 //Se mueve en Derecha - Up    
                 case 0b110:
                     fisicas.velY = -pasoUpdate;
                     fisicas.velX = +pasoUpdate;
-                    estadoObjecto = 24;
+                    if (estadoObjeto < 24 || estadoObjeto > 27) {
+                        estadoObjeto = 24;
+                    } else {
+                        estadoObjeto++;
+                    }
                     break;
-                
+
                 //Se mueve en Derecha - Down    
                 case 0b1010:
                     fisicas.velY = +pasoUpdate;
                     fisicas.velX = +pasoUpdate;
-                    estadoObjecto = 28;
+                    estadoObjeto = 28;
                     break;
 
                 //No se Mueve nada    
                 case 0b11:
                 case 0b1100:
-                case 0b1111:    
+                case 0b1111:
                 case 0:
                     fisicas.velX = Maths.normalize(fisicas.velX);
                     fisicas.velY = Maths.normalize(fisicas.velY);
@@ -140,12 +150,29 @@ public class Character extends GameObject {
         gc.fillText(String.format("%016d", new BigInteger(Integer.toBinaryString(input))), 10, 10);
     }
 
+    int pos = 0;
+
+    @Override
+    public void render(GraphicsContext gc) {
+        if (ImageManager.allImages != null) {
+//            switch (estadoObjeto) {
+//                case ()
+//            }
+            if (pos > 2) {
+                pos = 0;
+            } else {
+                pos = Animation.nuevoEstadoChar(pos);
+            }
+            gc.drawImage(ImageManager.allImages[pos], positionBox.x, positionBox.y);
+        }
+    }
+
     @Override
     public void renderTest(GraphicsContext gc) {
         gc.setFill(Color.BLUE);
         //drawingTest(gc);
         gc.fillRect(positionBox.getX(), positionBox.getY(), positionBox.getWidth(), positionBox.getHeight());
-        if (estadoObjecto == 0 || estadoObjecto == 16 || estadoObjecto == 20) //left
+        if (estadoObjeto == 0 || estadoObjeto == 16 || estadoObjeto == 20) //left
         {
             gc.fillPolygon(
                     new double[]{
@@ -161,7 +188,7 @@ public class Character extends GameObject {
                     3);
         }
 
-        if (estadoObjecto == 4 || estadoObjecto == 24 || estadoObjecto == 28) //right
+        if (estadoObjeto == 4 || estadoObjeto == 24 || estadoObjeto == 28) //right
         {
             gc.fillPolygon(
                     new double[]{
@@ -177,7 +204,7 @@ public class Character extends GameObject {
                     3);
         }
 
-        if (estadoObjecto == 8 || estadoObjecto == 16 || estadoObjecto == 24) //top
+        if (estadoObjeto == 8 || estadoObjeto == 16 || estadoObjeto == 24) //top
         {
             gc.fillPolygon(
                     new double[]{
@@ -193,7 +220,7 @@ public class Character extends GameObject {
                     3);
         }
 
-        if (estadoObjecto == 12 || estadoObjecto == 20 || estadoObjecto == 28) //down
+        if (estadoObjeto == 12 || estadoObjeto == 20 || estadoObjeto == 28) //down
         {
             gc.fillPolygon(
                     new double[]{
