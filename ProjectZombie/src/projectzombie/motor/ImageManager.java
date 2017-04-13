@@ -5,7 +5,14 @@
  */
 package projectzombie.motor;
 
-import javafx.scene.image.Image;
+import java.awt.Image;
+import static java.awt.Image.SCALE_DEFAULT;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+
 
 /**
  * Almacena imagenes y las pasa junto al constructor de los GameObjects para un
@@ -28,53 +35,66 @@ public class ImageManager {
         allImages = new Image[NUM_IMAGENES];
 
         //FRONT
-        allImages[0] = new Image("recursos/prototipo/00_STATICS/FRONT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[1] = new Image("recursos/prototipo/00_STATICS/FRONT_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[2] = new Image("recursos/prototipo/00_STATICS/FRONT_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[3] = new Image("recursos/prototipo/00_STATICS/FRONT_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[0] = loadImg("recursos/prototipo/00_STATICS/FRONT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[1] = loadImg("recursos/prototipo/00_STATICS/FRONT_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[2] = loadImg("recursos/prototipo/00_STATICS/FRONT_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[3] = loadImg("recursos/prototipo/00_STATICS/FRONT_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
 
         //LEFT-BOTTOM
-        allImages[4] = new Image("recursos/prototipo/00_STATICS/LB_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[5] = new Image("recursos/prototipo/00_STATICS/LB_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[6] = new Image("recursos/prototipo/00_STATICS/LB_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[7] = new Image("recursos/prototipo/00_STATICS/LB_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[4] = loadImg("recursos/prototipo/00_STATICS/LB_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[5] = loadImg("recursos/prototipo/00_STATICS/LB_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[6] = loadImg("recursos/prototipo/00_STATICS/LB_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[7] = loadImg("recursos/prototipo/00_STATICS/LB_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
 
         //LEFT
-        allImages[8] = new Image("recursos/prototipo/00_STATICS/LEFT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[9] = new Image("recursos/prototipo/00_STATICS/LEFT_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[10] = new Image("recursos/prototipo/00_STATICS/LEFT_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[11] = new Image("recursos/prototipo/00_STATICS/LEFT_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[8] = loadImg("recursos/prototipo/00_STATICS/LEFT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[9] = loadImg("recursos/prototipo/00_STATICS/LEFT_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[10] = loadImg("recursos/prototipo/00_STATICS/LEFT_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[11] = loadImg("recursos/prototipo/00_STATICS/LEFT_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
 
         //LEFT-TOP
-        allImages[12] = new Image("recursos/prototipo/00_STATICS/LT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[13] = new Image("recursos/prototipo/00_STATICS/LT_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[14] = new Image("recursos/prototipo/00_STATICS/LT_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[15] = new Image("recursos/prototipo/00_STATICS/LT_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[12] = loadImg("recursos/prototipo/00_STATICS/LT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[13] = loadImg("recursos/prototipo/00_STATICS/LT_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[14] = loadImg("recursos/prototipo/00_STATICS/LT_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[15] = loadImg("recursos/prototipo/00_STATICS/LT_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
 
         //BACK
-        allImages[16] = new Image("recursos/prototipo/00_STATICS/BACK_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[17] = new Image("recursos/prototipo/00_STATICS/BACK_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[18] = new Image("recursos/prototipo/00_STATICS/BACK_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[19] = new Image("recursos/prototipo/00_STATICS/BACK_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[16] = loadImg("recursos/prototipo/00_STATICS/BACK_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[17] = loadImg("recursos/prototipo/00_STATICS/BACK_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[18] = loadImg("recursos/prototipo/00_STATICS/BACK_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[19] = loadImg("recursos/prototipo/00_STATICS/BACK_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
 
         //RIGHT-TOP
-        allImages[20] = new Image("recursos/prototipo/00_STATICS/RT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[21] = new Image("recursos/prototipo/00_STATICS/RT_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[22] = new Image("recursos/prototipo/00_STATICS/RT_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[23] = new Image("recursos/prototipo/00_STATICS/RT_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[20] = loadImg("recursos/prototipo/00_STATICS/RT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[21] = loadImg("recursos/prototipo/00_STATICS/RT_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[22] = loadImg("recursos/prototipo/00_STATICS/RT_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[23] = loadImg("recursos/prototipo/00_STATICS/RT_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
 
         //RIGHT
-        allImages[24] = new Image("recursos/prototipo/00_STATICS/RIGHT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[25] = new Image("recursos/prototipo/00_STATICS/RIGHT_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[26] = new Image("recursos/prototipo/00_STATICS/RIGHT_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[27] = new Image("recursos/prototipo/00_STATICS/RIGHT_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[24] = loadImg("recursos/prototipo/00_STATICS/RIGHT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[25] = loadImg("recursos/prototipo/00_STATICS/RIGHT_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[26] = loadImg("recursos/prototipo/00_STATICS/RIGHT_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[27] = loadImg("recursos/prototipo/00_STATICS/RIGHT_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
 
         //RIGHT-BOTTOM
-        allImages[28] = new Image("recursos/prototipo/00_STATICS/RB_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[29] = new Image("recursos/prototipo/00_STATICS/RB_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[30] = new Image("recursos/prototipo/00_STATICS/RB_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
-        allImages[31] = new Image("recursos/prototipo/00_STATICS/RB_STAY/0030.png", IMG_SIZE, IMG_SIZE, true, false);
-
+        allImages[28] = loadImg("recursos/prototipo/00_STATICS/RB_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[29] = loadImg("recursos/prototipo/00_STATICS/RB_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[30] = loadImg("recursos/prototipo/00_STATICS/RB_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[31] = loadImg("recursos/prototipo/00_STATICS/RB_STAY/0030.png", IMG_SIZE, IMG_SIZE);
     }
 
+    private static Image loadImg(String ruta, int width, int height){
+        try {
+            Image aux = ImageIO.read(new File("src/./" + ruta).getCanonicalFile());
+            return aux.getScaledInstance(width, height, SCALE_DEFAULT);
+        } catch (IOException ex) {
+            System.out.println("src/../" + ruta);
+            Logger.getLogger(ImageManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    private static Image loadImg(String ruta, int width, int height,boolean si, boolean no){
+        return loadImg(ruta, width, height);
+    }
+    
 }

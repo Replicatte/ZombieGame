@@ -5,13 +5,13 @@
  */
 package projectzombie.game;
 
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Condition;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.canvas.GraphicsContext;
 import projectzombie.gameobjects.GameObject;
 import projectzombie.gameobjects.Character;
 import projectzombie.gameobjects.Mapa;
@@ -29,7 +29,7 @@ public class GameInit {
 
 //    // Para la espera del contextografico
 //    public static Lock lckGC;
-    private static GraphicsContext contextoGrafico;
+    private static Graphics contextoGrafico;
 
     public static Condition contextoGraficoCreado;
 
@@ -39,16 +39,15 @@ public class GameInit {
         gcReady = false;
         //TAL VEZ ANIMACIÓN DE LOADING CON SU PROPIO ESTADO DE JUEGO?
         Window w = new Window();
-
         new Thread() {
             @Override
             public void run() {
-                w.principal(args); //SE ENTRA EN EL METODO Y NO SE SALE
+                //WinSenyorDeLaCeniza.main(args); //SE ENTRA EN EL METODO Y NO SE SALE
             }
 
         }.start();
 
-        
+        w.setVisible(true);
         System.out.println("--------------INICIO ESPERA------------------");
 
         long k = 1;
@@ -81,13 +80,15 @@ public class GameInit {
 
         Game juego = new Game(contextoGrafico, ago, w);
 
-        GameLoop bucleJuego = new GameLoop(new Timer(), juego, w);
+        GameLoop bucleJuego = new GameLoop(new Timer(), juego);
 
         bucleJuego.start();
 
     }
 
-    public static void darConextoGrafico(GraphicsContext gc) {
+    public static void darConextoGrafico(Graphics gc) {
         contextoGrafico = gc;
     }
+    
+    
 }

@@ -5,9 +5,10 @@
  */
 package projectzombie.gameobjects;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Rectangle;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+
 
 /**
  *
@@ -21,10 +22,10 @@ public class Enemie extends GameObject {
     }
 
     @Override
-    public void renderTest(GraphicsContext gc) {
-        gc.setFill(Color.PURPLE);
+    public void renderTest(Graphics gc) {
+        gc.setColor(Color.PINK);
 
-        gc.fillRect(positionBox.getX(), positionBox.getY(), positionBox.getWidth(), positionBox.getHeight());
+        gc.fillRect(positionBox.x, positionBox.y, positionBox.width, positionBox.height);
     }
 
 }

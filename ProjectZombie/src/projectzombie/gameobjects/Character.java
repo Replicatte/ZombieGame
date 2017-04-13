@@ -5,17 +5,16 @@
  */
 package projectzombie.gameobjects;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.math.BigInteger;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import projectzombie.Fisicas.ChrPhys;
 import projectzombie.Utils.Maths;
+import projectzombie.game.Game;
 import projectzombie.motor.Animation;
 import projectzombie.motor.ImageManager;
 import static projectzombie.motor.Window.input;
-
 /**
  *
  * @author repli
@@ -55,8 +54,9 @@ public class Character extends GameObject {
     }
     private static final int pasoUpdate = 8;
 
+    @Override
     public void update(short input) {
-        if ((0b1000000000000000 & input) == 0b1000000000000000) {
+        //if ((0b1000000000000000 & input) == 0b1000000000000000) {
 
             switch ((0b0000000000001111 & input)) {
 
@@ -138,22 +138,22 @@ public class Character extends GameObject {
                     break;
             }
             setLocation(this.positionBox.x += fisicas.velX, this.positionBox.y += fisicas.velY);
-        }
+        //}
     }
 
-    private void drawingTest(GraphicsContext gc) {
+    private void drawingTest(Graphics gc) {
 
-        gc.setFill(Color.AQUA);
+        gc.setColor(Color.CYAN);
         gc.fillRect(0, 0, 10, 10);
 
-        gc.setFill(Color.DARKORANGE);
-        gc.fillText(String.format("%016d", new BigInteger(Integer.toBinaryString(input))), 10, 10);
+        gc.setColor(Color.ORANGE);
+        gc.drawString(String.format("%016d", new BigInteger(Integer.toBinaryString(input))), 10, 10);
     }
 
     int pos = 0;
 
     @Override
-    public void render(GraphicsContext gc) {
+    public void render() {
         if (ImageManager.allImages != null) {
 //            switch (estadoObjeto) {
 //                case ()
@@ -163,27 +163,29 @@ public class Character extends GameObject {
             } else {
                 pos = Animation.nuevoEstadoChar(pos);
             }
-            gc.drawImage(ImageManager.allImages[pos], positionBox.x, positionBox.y);
+            if(Game.contextoGrafico != null) {
+                Game.contextoGrafico.drawImage(ImageManager.allImages[pos], positionBox.x, positionBox.y,null);
+            }
         }
     }
 
     @Override
-    public void renderTest(GraphicsContext gc) {
-        gc.setFill(Color.BLUE);
+    public void renderTest(Graphics gc) {
+        gc.setColor(Color.BLUE);
         //drawingTest(gc);
-        gc.fillRect(positionBox.getX(), positionBox.getY(), positionBox.getWidth(), positionBox.getHeight());
+        gc.fillRect(positionBox.x, positionBox.y, positionBox.width, positionBox.height);
         if (estadoObjeto == 0 || estadoObjeto == 16 || estadoObjeto == 20) //left
         {
             gc.fillPolygon(
-                    new double[]{
-                        positionBox.getX() - 16,
-                        positionBox.getX() - 32,
-                        positionBox.getX() - 16
+                    new int[]{
+                        positionBox.x - 16,
+                        positionBox.x - 32,
+                        positionBox.x - 16
                     },
-                    new double[]{
-                        positionBox.getY(),
-                        positionBox.getY() + 32,
-                        positionBox.getY() + 64
+                    new int[]{
+                        positionBox.y,
+                        positionBox.y + 32,
+                        positionBox.y + 64
                     },
                     3);
         }
@@ -191,15 +193,15 @@ public class Character extends GameObject {
         if (estadoObjeto == 4 || estadoObjeto == 24 || estadoObjeto == 28) //right
         {
             gc.fillPolygon(
-                    new double[]{
-                        positionBox.getX() + 80,
-                        positionBox.getX() + 96,
-                        positionBox.getX() + 80
+                    new int[]{
+                        positionBox.x + 80,
+                        positionBox.x + 96,
+                        positionBox.x + 80
                     },
-                    new double[]{
-                        positionBox.getY(),
-                        positionBox.getY() + 32,
-                        positionBox.getY() + 64
+                    new int[]{
+                        positionBox.y,
+                        positionBox.y + 32,
+                        positionBox.y + 64
                     },
                     3);
         }
@@ -207,15 +209,15 @@ public class Character extends GameObject {
         if (estadoObjeto == 8 || estadoObjeto == 16 || estadoObjeto == 24) //top
         {
             gc.fillPolygon(
-                    new double[]{
-                        positionBox.getX(),
-                        positionBox.getX() + 32,
-                        positionBox.getX() + 64
+                    new int[]{
+                        positionBox.x,
+                        positionBox.x + 32,
+                        positionBox.x + 64
                     },
-                    new double[]{
-                        positionBox.getY() - 16,
-                        positionBox.getY() - 32,
-                        positionBox.getY() - 16
+                    new int[]{
+                        positionBox.y - 16,
+                        positionBox.y - 32,
+                        positionBox.y - 16
                     },
                     3);
         }
@@ -223,15 +225,15 @@ public class Character extends GameObject {
         if (estadoObjeto == 12 || estadoObjeto == 20 || estadoObjeto == 28) //down
         {
             gc.fillPolygon(
-                    new double[]{
-                        positionBox.getX(),
-                        positionBox.getX() + 32,
-                        positionBox.getX() + 64
+                    new int[]{
+                        positionBox.x,
+                        positionBox.x + 32,
+                        positionBox.x + 64
                     },
-                    new double[]{
-                        positionBox.getY() + 80,
-                        positionBox.getY() + 96,
-                        positionBox.getY() + 80
+                    new int[]{
+                        positionBox.y + 80,
+                        positionBox.y + 96,
+                        positionBox.y + 80
                     },
                     3);
         }

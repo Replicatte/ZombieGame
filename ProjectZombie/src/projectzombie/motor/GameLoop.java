@@ -5,12 +5,9 @@
  */
 package projectzombie.motor;
 
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectzombie.game.Game;
-import projectzombie.motor.Timer;
-
 /**
  *
  * @author repli
@@ -25,7 +22,7 @@ public class GameLoop extends Thread {
 
     private Game ourGame;
 
-    public GameLoop(Timer timer, Game ourGame, Window window) {
+    public GameLoop(Timer timer, Game ourGame) {
         this.timer = timer;
         this.ourGame = ourGame;
     }
@@ -43,15 +40,11 @@ public class GameLoop extends Thread {
     public void run() {
         try {
             gameLoop2();
-
         } catch (Exception excp) {
-
             excp.printStackTrace();
-
         } finally {
 
         }
-
     }
 
     int lastFpsTime;
@@ -60,6 +53,7 @@ public class GameLoop extends Thread {
     protected void gameLoop2() {
         long lastLoopTime = System.nanoTime();
         final int TARGET_FPS = 60;
+        boolean coin = true;
         final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
         while (true) {
             long now = System.nanoTime();
@@ -75,7 +69,12 @@ public class GameLoop extends Thread {
                 fps = 0;
             }
             ourGame.updateAll(delta);
+            //if(coin){
             ourGame.renderAll();
+            //    coin = !coin;
+            //} else {
+            //    coin = !coin;
+            //}
 
             try {
                 long tiempoEsperaReal = lastLoopTime - System.nanoTime();
@@ -83,13 +82,13 @@ public class GameLoop extends Thread {
                     tiempoEsperaReal = 0;
                 }
                 Thread.sleep(tiempoEsperaReal + OPTIMAL_TIME / 1000000);
-                
-                
+
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
+            }  catch (Exception e) {
+                System.out.println(e + "\n TE LO DIJE!!");
             }
         }
-
     }
 
     protected void gameLoop() {
@@ -126,7 +125,7 @@ public class GameLoop extends Thread {
 //                k++;
 //            }
 
-            ourGame.renderAll();
+            //ourGame.renderAll();
 
             sync();
 
@@ -144,10 +143,12 @@ public class GameLoop extends Thread {
 
             try {
 
-                Thread.sleep(1);
+                this.sleep(1);
 
             } catch (InterruptedException ie) {
                 System.out.println("FALLOOOOOOO DE INTERRUPCION");
+            } catch (Exception e) {
+                System.out.println(e + "\n" + e.getCause());
             }
 
         }

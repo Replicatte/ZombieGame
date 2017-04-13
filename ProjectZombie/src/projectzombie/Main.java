@@ -6,7 +6,6 @@
 package projectzombie;
 
 import projectzombie.game.GameInit;
-import projectzombie.motor.Window;
 
 /**
  *

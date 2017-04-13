@@ -5,11 +5,10 @@
  */
 package projectzombie.gameobjects;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 /**
  *
@@ -30,15 +29,15 @@ public class GameObject {
         this.hasColision = 0;
     }
 
-    public void render(GraphicsContext gc) {
+    public void render() {
         //gc.drawImage(,positionBox.x,positionBox.y);
     }
 
-    public void renderTest(GraphicsContext gc) {
-//       if(gc != null){ //tarda más en sacar el condicional
-        gc.setFill(Color.RED);
-        gc.fillRect(this.positionBox.getX(), this.positionBox.getY(), 64, 64);
-//       }
+    public void renderTest(Graphics gc) {
+        if(gc != null){ //tarda más en sacar el condicional
+            gc.setColor(Color.RED);
+            gc.fillRect(this.positionBox.x, this.positionBox.y, 64, 64);
+       }
     }
     
     public void update(ArrayList<Byte> input){

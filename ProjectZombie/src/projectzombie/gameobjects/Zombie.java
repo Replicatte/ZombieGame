@@ -5,13 +5,10 @@
  */
 package projectzombie.gameobjects;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.util.ArrayList;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import projectzombie.Fisicas.ChrPhys;
-import projectzombie.Utils.Maths;
-import projectzombie.game.GameInit;
 import projectzombie.motor.Window;
 
 /**
@@ -37,10 +34,13 @@ public class Zombie extends Enemie {
     }
 
     @Override
-    public void renderTest(GraphicsContext gc) {
-        gc.setFill(Color.GREEN);
-        gc.fillRect(this.positionBox.getX(), this.positionBox.getY(), this.positionBox.getWidth(), this.positionBox.getHeight());
+    public void renderTest(Graphics gc) {
+        if(gc != null) {
+            gc.setColor(Color.GREEN);
+            gc.fillRect(this.positionBox.x, this.positionBox.y, this.positionBox.width, this.positionBox.height);
+        }
     }
+    
     int modX = 1;
     int modY = 1;
 
