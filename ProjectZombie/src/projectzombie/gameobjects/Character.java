@@ -158,8 +158,8 @@ public class Character extends GameObject {
 //            switch (estadoObjeto) {
 //                case ()
 //            }
-            if (pos > 2) {
-                pos = 0;
+            if (pos > 18) {
+                pos = 16;
             } else {
                 pos = Animation.nuevoEstadoChar(pos);
             }
