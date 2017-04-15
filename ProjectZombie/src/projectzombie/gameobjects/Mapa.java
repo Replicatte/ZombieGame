@@ -5,6 +5,7 @@
  */
 package projectzombie.gameobjects;
 
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -20,10 +21,14 @@ public class Mapa extends GameObject {
         super(colisionBox, postionBox, estadoObjecto);
     }
 
-    public void renderTest(GraphicsContext gc) {
-
-        gc.setFill(Color.SALMON);
-
-        gc.fillRect(0,0,Window.SCREEN_WIDTH, Window.SCREEN_HEIGHT);
+    @Override
+    public void renderTest(Graphics gc) {
+         if(gc != null){ //tarda más en sacar el condicional
+            gc.setColor(java.awt.Color.lightGray);
+            gc.fillRect(0, 0, Window.SCREEN_WIDTH,  Window.SCREEN_HEIGHT);
+       }
+        
     }
+
+    
 }

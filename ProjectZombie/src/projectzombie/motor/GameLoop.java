@@ -8,6 +8,7 @@ package projectzombie.motor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import projectzombie.game.Game;
+
 /**
  *
  * @author repli
@@ -22,9 +23,11 @@ public class GameLoop extends Thread {
 
     private Game ourGame;
 
+
     public GameLoop(Timer timer, Game ourGame) {
         this.timer = timer;
         this.ourGame = ourGame;
+
     }
 
 //    @Override
@@ -60,17 +63,19 @@ public class GameLoop extends Thread {
             long updateLength = now - lastLoopTime;
             lastLoopTime = now;
             double delta = updateLength / ((double) OPTIMAL_TIME);
-            lastFpsTime += updateLength;
-            fps++;
 
-            if (lastFpsTime >= 1000000000){
-                System.out.println("(FPS: " + fps + ")");
-                lastFpsTime = 0;
-                fps = 0;
+            this.lastFpsTime += updateLength;
+            this.fps++;
+
+            if (this.lastFpsTime >= 1000000000) {
+                System.out.println("(FPS: " + this.fps + ")");
+                this.lastFpsTime = 0;
+                this.fps = 0;
             }
             ourGame.updateAll(delta);
             //if(coin){
-            ourGame.renderAll();
+
+                ourGame.renderAll();
             //    coin = !coin;
             //} else {
             //    coin = !coin;
@@ -78,14 +83,14 @@ public class GameLoop extends Thread {
 
             try {
                 long tiempoEsperaReal = lastLoopTime - System.nanoTime();
-                if(tiempoEsperaReal < 0){
+                if (tiempoEsperaReal < 0) {
                     tiempoEsperaReal = 0;
                 }
                 Thread.sleep(tiempoEsperaReal + OPTIMAL_TIME / 1000000);
 
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
-            }  catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(e + "\n TE LO DIJE!!");
             }
         }
@@ -126,7 +131,6 @@ public class GameLoop extends Thread {
 //            }
 
             //ourGame.renderAll();
-
             sync();
 
         }

@@ -16,118 +16,112 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import projectzombie.game.GameInit;
-import static projectzombie.game.GameInit.gcReady;
+//import static projectzombie.game.GameInit.gcReady;
 
 /**
  *
  * @author saulc
  */
-
-public class Window extends JFrame{
+public class Window extends JFrame {
 
     public static short input;
-    
+
     public static Graphics gc;
+    private Image buffer;
+    private Graphics ctx;
 
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;
 
-    
-    private Image buffer;
-    private Graphics ctx;
-    
-    
     public static void main(String[] args) {
-        input = (short)0b1000000000000000;
-        try{
+        input = (short) 0b1000000000000000;
+        try {
             new Window().setVisible(true);
             System.setProperty("sun.java2d.opengl", "true");
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    public Window(){
-        
+
+    public Window() {
+
         addKeyListener(new MyKeyListener());
-        
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
                 System.exit(0);
             }
-        } );
-        
-        
+        });
+
         this.setTitle("ZombieProject");
         JPanel root = new JPanel();
-        
 
         setContentPane(root);
         setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        
+
         System.out.println("VENTANA MOSTRADA");
-        gcReady = true;
-       
-       
+//        gcReady = true;
+
     }
-    
+
     @Override
     public void update(Graphics g) {
         paint(g);
     }
+
     // repaint
-    @Override 
-    public void paint (Graphics g) {        
-        g.drawImage(buffer, 0, 0, null);  
-        buffer = createImage(SCREEN_WIDTH,SCREEN_HEIGHT);
+    @Override
+    public void paint(Graphics g) {
+        
+//        this.getRootPane().paintComponents(g);
+//        super.paint(g);
+        g.drawImage(buffer, 0, 0, null);
+        buffer = createImage(SCREEN_WIDTH, SCREEN_HEIGHT);
         ctx = buffer.getGraphics();
-        gc = ctx;
+
+//        gc = ctx;
     }
-    
-    
+
     private void drawing(Graphics gc) {
         gc.setColor(Color.BLACK);
         gc.fillRect(0, 0, 100, 100);
-        
-        
+
         GameInit.darConextoGrafico(gc);
     }
-    
-    public Graphics graphicsContext(){
-        return gc;
+
+    public Graphics graphicsContext() {
+        //gc
+        return ctx;
     }
-    
-    
-    
+
     public class MyKeyListener extends WindowAdapter implements KeyListener {
-        
+
         @Override
         public void keyTyped(KeyEvent ke) {
-
 
         }
 
         @Override
         public void keyPressed(KeyEvent ke) {
-            switch(ke.getExtendedKeyCode()){
+            switch (ke.getExtendedKeyCode()) {
                 case KeyEvent.VK_A://posicion 0 input
-                    if((input & 0b1)== 0){
+                    if ((input & 0b1) == 0) {
                         ++input;
                     }
                     break;
                 case KeyEvent.VK_D://posicion 2 input
-                    if((input & 0b10) == 0){
+                    if ((input & 0b10) == 0) {
                         input += 2;
                     }
                     break;
                 case KeyEvent.VK_W://posicion 3
-                    if((input & 0b100) == 0){
+                    if ((input & 0b100) == 0) {
                         input += 4;
                     }
                     break;
                 case KeyEvent.VK_S://posicion 4
-                    if((input & 0b1000) == 0){
+                    if ((input & 0b1000) == 0) {
                         input += 8;
                     }
                     break;
@@ -136,7 +130,7 @@ public class Window extends JFrame{
 
         @Override
         public void keyReleased(KeyEvent ke) {
-            switch(ke.getKeyCode()){
+            switch (ke.getKeyCode()) {
                 case KeyEvent.VK_A://posicion 0 input
                     --input;
                     break;
@@ -150,6 +144,6 @@ public class Window extends JFrame{
                     input -= 8;
                     break;
             }
-        }  
-    } 
+        }
+    }
 }
