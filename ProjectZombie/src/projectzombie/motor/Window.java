@@ -26,7 +26,7 @@ public class Window extends JFrame {
 
     public static short input;
 
-    public static Graphics gc;
+//    public static Graphics gc;
     private Image buffer;
     private Graphics ctx;
 
@@ -105,22 +105,22 @@ public class Window extends JFrame {
         @Override
         public void keyPressed(KeyEvent ke) {
             switch (ke.getExtendedKeyCode()) {
-                case KeyEvent.VK_A://posicion 0 input
+                case KeyEvent.VK_A: //posicion 0 input
                     if ((input & 0b1) == 0) {
                         ++input;
                     }
                     break;
-                case KeyEvent.VK_D://posicion 2 input
+                case KeyEvent.VK_D: //posicion 2 input
                     if ((input & 0b10) == 0) {
                         input += 2;
                     }
                     break;
-                case KeyEvent.VK_W://posicion 3
+                case KeyEvent.VK_W: //posicion 3
                     if ((input & 0b100) == 0) {
                         input += 4;
                     }
                     break;
-                case KeyEvent.VK_S://posicion 4
+                case KeyEvent.VK_S: //posicion 4
                     if ((input & 0b1000) == 0) {
                         input += 8;
                     }
@@ -131,16 +131,16 @@ public class Window extends JFrame {
         @Override
         public void keyReleased(KeyEvent ke) {
             switch (ke.getKeyCode()) {
-                case KeyEvent.VK_A://posicion 0 input
+                case KeyEvent.VK_A: //posicion 0 input
                     --input;
                     break;
-                case KeyEvent.VK_D://posicion 2 input
+                case KeyEvent.VK_D: //posicion 2 input
                     input -= 2;
                     break;
-                case KeyEvent.VK_W://posicion 3
+                case KeyEvent.VK_W: //posicion 3
                     input -= 4;
                     break;
-                case KeyEvent.VK_S://posicion 4
+                case KeyEvent.VK_S: //posicion 4
                     input -= 8;
                     break;
             }
