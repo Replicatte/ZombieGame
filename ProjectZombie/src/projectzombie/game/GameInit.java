@@ -7,18 +7,11 @@ package projectzombie.game;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferStrategy;
-import static java.lang.Thread.sleep;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import projectzombie.gameobjects.GameObject;
+import projectzombie.gameobjects.*;
 import projectzombie.gameobjects.Character;
-import projectzombie.gameobjects.Mapa;
-import projectzombie.gameobjects.Zombie;
-import projectzombie.motor.GameLoop;
-import projectzombie.motor.ImageManager;
-import projectzombie.motor.Timer;
-import projectzombie.motor.Window;
+
+import projectzombie.motor.*;
 
 /**
  *
@@ -26,40 +19,16 @@ import projectzombie.motor.Window;
  */
 public class GameInit {
 
-//    // Para la espera del contextografico
-//    public static Lock lckGC;
     private static Graphics contextoGrafico;
 
-//    public static boolean gcReady;
     public static void iniciarJuego(String[] args) {
-//        gcReady = false;
         //TAL VEZ ANIMACIÓN DE LOADING CON SU PROPIO ESTADO DE JUEGO?
         Window w = new Window();
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                //WinSenyorDeLaCeniza.main(args); //SE ENTRA EN EL METODO Y NO SE SALE
-//            }
-//
-//        }.start();
 
         w.setLocationRelativeTo(null);
         w.setResizable(false);
         w.setVisible(true);
-//        System.out.println("--------------INICIO ESPERA------------------");
-//
-//        long k = 1;
-//        while (!gcReady) {
-//            System.out.println("Pasada Bucle num: -" + k);
-//            try {
-//                sleep(15);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(GameInit.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            k++;
-//        }
-//
-//        System.out.println("--------------FIN ESPERA--------------------");
+
         ImageManager.generateImages();
 
         ArrayList<GameObject> ago = new ArrayList<>();
@@ -73,9 +42,10 @@ public class GameInit {
 
         Zombie zombie2 = new Zombie(new Rectangle(50, 50),
                 new Rectangle(0, 0, 64, 64), (byte) 0);
-        
+
         Mapa map = new Mapa(new Rectangle(50, 50),
                 new Rectangle(0, 0, 0, 0), (byte) 0);
+
         
         ago.add(map);
         ago.add(chara);
@@ -87,7 +57,6 @@ public class GameInit {
         GameLoop bucleJuego = new GameLoop(new Timer(), juego);
 
         bucleJuego.start();
-
     }
 
     public static void darConextoGrafico(Graphics gc) {

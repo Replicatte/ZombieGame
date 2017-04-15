@@ -24,24 +24,23 @@ public class Game {
     public Game(ArrayList<GameObject> objetosJuego, Window window) {
         this.objetosJuego = objetosJuego;
         this.window = window;
-//        this.contextAux = buffAux.getCanvas().getGraphicsContext2D();       
     }
 
-//    private Image buffAux = new Image(new InputStreamAdapter, Window.SCREEN_WIDTH,Window.SCREEN_HEIGHT, true, true);
-//    private GraphicsContext contextAux;        contextoGrafico.drawImage(buffAux, 0, 0);
     public void renderAll() {
         contextoGrafico = window.graphicsContext();
+
         try {
             for (GameObject obj : objetosJuego) {
-                        if (obj instanceof Character) {
-                            obj.render();
-                        } else {
-                            obj.renderTest(contextoGrafico);
-                       }
+                if (obj instanceof Character) {
+                    obj.render();
+                } else {
+                    obj.renderTest(contextoGrafico);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
         window.repaint();
     }
 

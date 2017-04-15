@@ -28,7 +28,7 @@ public class Window extends JFrame {
 
 //    public static Graphics gc;
     private Image buffer;
-    private Graphics ctx;
+    private Graphics gc;
 
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;
@@ -73,13 +73,21 @@ public class Window extends JFrame {
     // repaint
     @Override
     public void paint(Graphics g) {
-        
+        if (buffer == null) {
+            buffer = createImage(SCREEN_WIDTH, SCREEN_HEIGHT);
+            gc = buffer.getGraphics();
+        } else {
+            g.drawImage(buffer, 0, 0, null);
+            gc.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+        }
+
 //        this.getRootPane().paintComponents(g);
 //        super.paint(g);
-        g.drawImage(buffer, 0, 0, null);
-        buffer = createImage(SCREEN_WIDTH, SCREEN_HEIGHT);
-        ctx = buffer.getGraphics();
-
+//        g.drawImage(buffer, 0, 0, null);
+//        buffer = createImage(SCREEN_WIDTH, SCREEN_HEIGHT);
+//        ctx = buffer.getGraphics();
+//
 //        gc = ctx;
     }
 
@@ -91,8 +99,7 @@ public class Window extends JFrame {
     }
 
     public Graphics graphicsContext() {
-        //gc
-        return ctx;
+        return gc;
     }
 
     public class MyKeyListener extends WindowAdapter implements KeyListener {
