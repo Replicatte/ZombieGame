@@ -8,7 +8,7 @@ package projectzombie.gameobjects;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import projectzombie.Fisicas.ChrPhys;
+import projectzombie.fisicas.ChrPhys;
 import projectzombie.motor.Window;
 
 /**

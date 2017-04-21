@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
-
 /**
  * Almacena imagenes y las pasa junto al constructor de los GameObjects para un
  * posterior render según el estado de objeto del juego :)
@@ -81,9 +80,60 @@ public class ImageManager {
         allImages[29] = loadImg("recursos/prototipo/00_STATICS/RB_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
         allImages[30] = loadImg("recursos/prototipo/00_STATICS/RB_STAY/0020.png", IMG_SIZE, IMG_SIZE, true, false);
         allImages[31] = loadImg("recursos/prototipo/00_STATICS/RB_STAY/0030.png", IMG_SIZE, IMG_SIZE);
+
+        //------------------------------WALKING---------------------------------
+        
+        
+        //FRONT_WALKING
+        allImages[32] = loadImg("recursos/prototipo/01_ANIMATIONS/FRONT_WALK/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[33] = loadImg("recursos/prototipo/01_ANIMATIONS/FRONT_WALK/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[34] = loadImg("recursos/prototipo/01_ANIMATIONS/FRONT_WALK/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[35] = loadImg("recursos/prototipo/01_ANIMATIONS/FRONT_WALK/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+
+        //LB_WALKING
+        allImages[36] = loadImg("recursos/prototipo/01_ANIMATIONS/LB_WALK/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[37] = loadImg("recursos/prototipo/01_ANIMATIONS/LB_WALK/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[38] = loadImg("recursos/prototipo/01_ANIMATIONS/LB_WALK/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[39] = loadImg("recursos/prototipo/01_ANIMATIONS/LB_WALK/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+
+        //LEFT_WALKING
+        allImages[40] = loadImg("recursos/prototipo/01_ANIMATIONS/LEFT_WALK/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[41] = loadImg("recursos/prototipo/01_ANIMATIONS/LEFT_WALK/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[42] = loadImg("recursos/prototipo/01_ANIMATIONS/LEFT_WALK/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[43] = loadImg("recursos/prototipo/01_ANIMATIONS/LEFT_WALK/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+
+        //LT_WALKING
+        allImages[44] = loadImg("recursos/prototipo/01_ANIMATIONS/LT_WALK/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[45] = loadImg("recursos/prototipo/01_ANIMATIONS/LT_WALK/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[46] = loadImg("recursos/prototipo/01_ANIMATIONS/LT_WALK/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[47] = loadImg("recursos/prototipo/01_ANIMATIONS/LT_WALK/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+
+        //BACK_WALKING
+        allImages[48] = loadImg("recursos/prototipo/01_ANIMATIONS/BACK_WALK/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[49] = loadImg("recursos/prototipo/01_ANIMATIONS/BACK_WALK/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[50] = loadImg("recursos/prototipo/01_ANIMATIONS/BACK_WALK/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[51] = loadImg("recursos/prototipo/01_ANIMATIONS/BACK_WALK/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+
+        //RT_WALKING
+        allImages[52] = loadImg("recursos/prototipo/01_ANIMATIONS/RT_WALK/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[53] = loadImg("recursos/prototipo/01_ANIMATIONS/RT_WALK/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[54] = loadImg("recursos/prototipo/01_ANIMATIONS/RT_WALK/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[55] = loadImg("recursos/prototipo/01_ANIMATIONS/RT_WALK/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+
+        //RIGHT_WALKING
+        allImages[56] = loadImg("recursos/prototipo/01_ANIMATIONS/RIGHT_WALK/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[57] = loadImg("recursos/prototipo/01_ANIMATIONS/RIGHT_WALK/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[58] = loadImg("recursos/prototipo/01_ANIMATIONS/RIGHT_WALK/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[59] = loadImg("recursos/prototipo/01_ANIMATIONS/RIGHT_WALK/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+
+        //RB_WALKING
+        allImages[60] = loadImg("recursos/prototipo/01_ANIMATIONS/RB_WALK/0000.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[61] = loadImg("recursos/prototipo/01_ANIMATIONS/RB_WALK/0010.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[62] = loadImg("recursos/prototipo/01_ANIMATIONS/RB_WALK/0020.png", IMG_SIZE, IMG_SIZE, true, false);
+        allImages[63] = loadImg("recursos/prototipo/01_ANIMATIONS/RB_WALK/0030.png", IMG_SIZE, IMG_SIZE, true, false);
     }
 
-    private static Image loadImg(String ruta, int width, int height){
+    private static Image loadImg(String ruta, int width, int height) {
         try {
             Image aux = ImageIO.read(new File("src/./" + ruta).getCanonicalFile());
             return aux.getScaledInstance(width, height, SCALE_DEFAULT);
@@ -93,8 +143,9 @@ public class ImageManager {
         }
         return null;
     }
-    private static Image loadImg(String ruta, int width, int height,boolean si, boolean no){
+
+    private static Image loadImg(String ruta, int width, int height, boolean si, boolean no) {
         return loadImg(ruta, width, height);
     }
-    
+
 }

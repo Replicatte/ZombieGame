@@ -21,29 +21,32 @@ public class Game {
     private ArrayList<GameObject> objetosJuego;
     private Window window;
 
-    public Game(ArrayList<GameObject> objetosJuego, Window window) {
+    public Game(Graphics contextoGrafico, ArrayList<GameObject> objetosJuego,Window window) {
+        this.contextoGrafico = contextoGrafico;
         this.objetosJuego = objetosJuego;
         this.window = window;
+//        this.contextAux = buffAux.getCanvas().getGraphicsContext2D();       
     }
+    
+//    private Image buffAux = new Image(new InputStreamAdapter, Window.SCREEN_WIDTH,Window.SCREEN_HEIGHT, true, true);
+//    private GraphicsContext contextAux;        contextoGrafico.drawImage(buffAux, 0, 0);
 
+    
+    
     public void renderAll() {
         contextoGrafico = window.graphicsContext();
-
         try {
             for (GameObject obj : objetosJuego) {
-                if (obj instanceof Character) {
-                    obj.render();
-                } else {
-                    obj.renderTest(contextoGrafico);
-                }
+                if (obj instanceof Character){ obj.render();
+                }else obj.renderTest(contextoGrafico);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        window.repaint();
+        window.repaint();        
     }
-
+    
+    
     public void updateAll(double interval) {
         //POSIBLE IMPLEMENTACIÓN, PASAR ARRAYLIST DE STRING INPUT A BYTES,
         // RESTRINGIGIR VALORES 

@@ -5,10 +5,17 @@
  */
 package projectzombie.gameobjects;
 
+import java.awt.Rectangle;
+
 /**
  *
  * @author repli
  */
-public class Decoration {
-    
+public class Decoration extends GameObject {
+
+    public Decoration(Rectangle colisionBox, Rectangle postionBox, byte estadoObjecto) {
+        super(colisionBox, postionBox, estadoObjecto);
+        this.hasColision = 1;
+    }
+
 }

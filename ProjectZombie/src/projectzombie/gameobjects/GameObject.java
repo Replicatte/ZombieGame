@@ -20,12 +20,12 @@ public class GameObject {
     protected Rectangle colisionBox;
     protected Rectangle positionBox;
 
-    protected byte estadoObjeto;
+    protected byte baseFrame;
 
     public GameObject(Rectangle colisionBox, Rectangle postionBox, byte estadoObjecto) {
         this.colisionBox = colisionBox;
         this.positionBox = postionBox;
-        this.estadoObjeto = estadoObjecto;
+        this.baseFrame = estadoObjecto;
         this.hasColision = 0;
     }
 

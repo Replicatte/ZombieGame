@@ -7,8 +7,6 @@ package projectzombie.gameobjects;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import projectzombie.motor.Window;
 
 /**
@@ -21,14 +19,12 @@ public class Mapa extends GameObject {
         super(colisionBox, postionBox, estadoObjecto);
     }
 
-    @Override
     public void renderTest(Graphics gc) {
-         if(gc != null){ //tarda más en sacar el condicional
-            gc.setColor(java.awt.Color.lightGray);
-            gc.fillRect(0, 0, Window.SCREEN_WIDTH,  Window.SCREEN_HEIGHT);
-       }
-        
+        if (gc != null) { //tarda más en sacar el condicional
+            gc.setColor(java.awt.Color.LIGHT_GRAY);
+            gc.fillRect(0, 0, Window.SCREEN_WIDTH, Window.SCREEN_HEIGHT);
+        }else{
+            System.out.println("Mapa.renderTest() perroflauta");
+        }
     }
-
-    
 }
