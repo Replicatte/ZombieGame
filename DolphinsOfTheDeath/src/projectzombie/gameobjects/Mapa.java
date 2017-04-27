@@ -22,7 +22,7 @@ public class Mapa extends GameObject {
     public void renderTest(Graphics gc) {
         if (gc != null) { //tarda más en sacar el condicional
             gc.setColor(java.awt.Color.LIGHT_GRAY);
-            gc.fillRect(0, 0, Window.SCREEN_WIDTH, Window.SCREEN_HEIGHT);
+            gc.fillRect(0, 0, Window.screen_width, Window.screen_height);
         }else{
             System.out.println("Mapa.renderTest() perroflauta");
         }

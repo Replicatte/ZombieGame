@@ -47,13 +47,13 @@ public class Zombie extends Enemie {
     @Override
     public void update(double interval) {
 
-        if (positionBox.x > Window.SCREEN_WIDTH - 64) {
+        if (positionBox.x > Window.screen_width - 64) {
             modX = -1;
         } else if (positionBox.x < 0) {
             modX = 1;
         }
         
-        if (positionBox.y > Window.SCREEN_HEIGHT - 64) {
+        if (positionBox.y > Window.screen_height - 64) {
             modY = -1;
         } else if (positionBox.y < 0) {
             modY = 1;

@@ -13,6 +13,7 @@ import projectzombie.fisicas.ChrPhys;
 import projectzombie.utils.Maths;
 import projectzombie.game.Game;
 import projectzombie.motor.ImageManager;
+import projectzombie.motor.Window;
 import projectzombie.utils.Animation;
 
 /**
@@ -58,7 +59,7 @@ public class Character extends GameObject {
         fisicas.velY = 0;
 
     }
-    private static final int pasoUpdate = 6;
+    private static final int pasoUpdate = (10 * Window.resize);
 
     private byte actualFrame = 0;
     private byte actualGroup = 1;
@@ -95,7 +96,7 @@ public class Character extends GameObject {
                 //Se mueve Izquierda
                 case 0b1101:
                 case 0b1:
-                    fisicas.velX = -pasoUpdate;
+                    fisicas.velX = (byte) -pasoUpdate;
                     fisicas.velY = 0;
                     if (actualGroup != 30) {
                         transicio = true;
@@ -109,7 +110,7 @@ public class Character extends GameObject {
                 //Se mueve Derecha    
                 case 0b1110:
                 case 0b10:
-                    fisicas.velX = pasoUpdate;
+                    fisicas.velX = (byte) pasoUpdate;
                     fisicas.velY = 0;
                     if (actualGroup != 70) {
                         transicio = true;
@@ -123,7 +124,7 @@ public class Character extends GameObject {
                 //Se mueve Up    
                 case 0b111:
                 case 0b100:
-                    fisicas.velY = -pasoUpdate + 2;
+                    fisicas.velY = (byte) (-pasoUpdate + 2);
                     fisicas.velX = 0;
                     if (actualGroup != 50) {
                         transicio = true;
@@ -136,7 +137,7 @@ public class Character extends GameObject {
                 //Se mueve Down    
                 case 0b1011:
                 case 0b1000:
-                    fisicas.velY = pasoUpdate;
+                    fisicas.velY = (byte) pasoUpdate;
                     fisicas.velX = 0;
                     if (actualGroup != 10) {
                         transicio = true;
@@ -149,8 +150,8 @@ public class Character extends GameObject {
 
                 //Se mueve en Izquierda - Up    
                 case 0b101:
-                    fisicas.velY = -pasoUpdate + 2;
-                    fisicas.velX = -pasoUpdate + 2;
+                    fisicas.velY = (byte) (-pasoUpdate + 2);
+                    fisicas.velX = (byte) ((byte)-pasoUpdate + 2);
                     if (actualGroup != 40) {
                         transicio = true;
                         actualFrame = 44;
@@ -162,8 +163,8 @@ public class Character extends GameObject {
 
                 //Se mueve en Izquierda - Down
                 case 0b1001:
-                    fisicas.velY = pasoUpdate - 1;
-                    fisicas.velX = -pasoUpdate + 1;
+                    fisicas.velY = (byte) (pasoUpdate - 1);
+                    fisicas.velX = (byte) (-pasoUpdate + 1);
                     if (actualGroup != 20) {
                         transicio = true;
                         actualFrame = 36;
@@ -175,8 +176,8 @@ public class Character extends GameObject {
 
                 //Se mueve en Derecha - Up    
                 case 0b110:
-                    fisicas.velY = -pasoUpdate+2;
-                    fisicas.velX = +pasoUpdate-2;
+                    fisicas.velY = (byte) (-pasoUpdate+2);
+                    fisicas.velX = (byte) ((byte)+pasoUpdate-2);
                     if (actualGroup != 60) {
                         transicio = true;
                         actualFrame = 52;
@@ -188,8 +189,8 @@ public class Character extends GameObject {
 
                 //Se mueve en Derecha - Down    
                 case 0b1010:
-                    fisicas.velY = +pasoUpdate-1;
-                    fisicas.velX = +pasoUpdate-1;
+                    fisicas.velY = (byte) (+pasoUpdate-1);
+                    fisicas.velX = (byte) (+pasoUpdate-1);
                     if (actualGroup != 80) {
                         transicio = true;
                         actualFrame = 60;

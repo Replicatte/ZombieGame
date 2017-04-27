@@ -36,7 +36,7 @@ public class GameObject {
     public void renderTest(Graphics gc) {
         if(gc != null){ //tarda más en sacar el condicional
             gc.setColor(Color.RED);
-            gc.fillRect(this.positionBox.x, this.positionBox.y, 64, 64);
+            gc.fillRect(this.positionBox.x, this.positionBox.y, 256, 64);
        }
     }
     

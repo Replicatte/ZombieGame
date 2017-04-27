@@ -25,13 +25,18 @@ public class ImageManager {
     // tipo de array de imagenes? 
     public static Image[] allImages;
 
-    private final static int IMG_RESIZE = 2;
-    private final static int IMG_SIZE = 64 * IMG_RESIZE;
+//    private final static int IMG_RESIZE = 2;
+//    private final static int IMG_SIZE = 64 * IMG_RESIZE;
+    private final static  double TARGET_SIZE =300;
+
+    private static int IMG_SIZE;
 
     private final static int NUM_IMAGENES = 128;
 
     public static void generateImages() {
         allImages = new Image[NUM_IMAGENES];
+
+        IMG_SIZE = (int) (TARGET_SIZE * Window.resize);
 
         //FRONT
         allImages[0] = loadImg("recursos/prototipo/00_STATICS/FRONT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
@@ -82,8 +87,6 @@ public class ImageManager {
         allImages[31] = loadImg("recursos/prototipo/00_STATICS/RB_STAY/0030.png", IMG_SIZE, IMG_SIZE);
 
         //------------------------------WALKING---------------------------------
-        
-        
         //FRONT_WALKING
         allImages[32] = loadImg("recursos/prototipo/01_ANIMATIONS/FRONT_WALK/0000.png", IMG_SIZE, IMG_SIZE, true, false);
         allImages[33] = loadImg("recursos/prototipo/01_ANIMATIONS/FRONT_WALK/0010.png", IMG_SIZE, IMG_SIZE, true, false);

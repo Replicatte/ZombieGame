@@ -6,6 +6,7 @@
 package projectzombie.utils;
 
 import java.util.Random;
+import projectzombie.motor.Window;
 
 /**
  *
@@ -15,21 +16,23 @@ public class Maths {
 
     public static int genRandom(int min, int max) {
         Random rand = new Random();
-        
+
         int randomNum = rand.nextInt((max - min) + 1) + min;
         return randomNum;
     }
-    
+
     /**
      *
      * @param valor
      * @return
      */
     public static byte normalize(byte valor) {
+        int frenadoValue = 2 * Window.resize;
+
         if (valor > 0) {
-            valor-=1;
+            valor -= frenadoValue;
         } else if (valor < 0) {
-            valor+=1;
+            valor += frenadoValue;
         }
         return valor;
     }

@@ -36,8 +36,8 @@ public class GameInit {
 
         //Creación de GameObject y pasarselos a GAME
         Character chara = new Character(new Rectangle(50, 50),
-                new Rectangle(Window.SCREEN_WIDTH >> 1 ,
-                        Window.SCREEN_HEIGHT >> 1, 64, 64), (byte) 0);
+                new Rectangle(Window.screen_width >> 1,
+                        Window.screen_height >> 1, 64, 64), (byte) 0);
 
         Zombie zombie1 = new Zombie(new Rectangle(50, 50),
                 new Rectangle(100, 200, 64, 64), (byte) 0);
