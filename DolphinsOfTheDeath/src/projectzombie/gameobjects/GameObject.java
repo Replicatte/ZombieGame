@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import projectzombie.game.Camara;
 
 /**
  *
@@ -34,10 +35,9 @@ public class GameObject {
     }
 
     public void renderTest(Graphics gc) {
-        if(gc != null){ //tarda más en sacar el condicional
-            gc.setColor(Color.RED);
-            gc.fillRect(this.positionBox.x, this.positionBox.y, 256, 64);
-       }
+        gc.setColor(Color.RED);
+        gc.fillRect(this.positionBox.x - Camara.offsetX, this.positionBox.y - Camara.offsetY, this.positionBox.width, this.positionBox.height);
+
     }
     
     public void update(ArrayList<Byte> input){
@@ -63,4 +63,7 @@ public class GameObject {
         this.positionBox.setLocation(x, this.positionBox.y);
     }
 
+    public Rectangle getPosition() {
+        return this.positionBox;
+    }
 }

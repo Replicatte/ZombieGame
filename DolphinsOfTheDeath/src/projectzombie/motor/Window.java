@@ -5,6 +5,7 @@
  */
 package projectzombie.motor;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -23,13 +24,13 @@ import javax.swing.JPanel;
 public class Window extends JFrame {
 
     public static short input = (short) 0b1000000000000000;
-    ;
     
+    private JPanel canvas;
     public static Graphics gc;
 
     public static int screen_width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     public static int screen_height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-    public static int resize;
+    public static double resize;
 
     public final static int target_width = 1920;
     public final static int target_height = 1080;
@@ -56,11 +57,11 @@ public class Window extends JFrame {
         System.setProperty("sun.java2d.opengl", "true");
 
         this.setTitle("ZombieProject");
-        JPanel root = new JPanel();
-
-        setContentPane(root);
+        this.canvas = new JPanel();
+        setBackground(Color.yellow);
+        setContentPane(this.canvas);
         setUndecorated(true);
-        resize = screen_width / target_width;
+        resize = ((double)screen_width) / target_width;
         setSize(Toolkit.getDefaultToolkit().getScreenSize());
 
         System.out.println("VENTANA MOSTRADA");
@@ -71,23 +72,35 @@ public class Window extends JFrame {
     @Override
     public void update(Graphics g) {
         paint(g);
+        //actualizar();
     }
 
+    public void actualizar() {
+        //this.canvas.getGraphics()
+        if (buffer == null) {
+            buffer = createImage(screen_width, screen_height);
+            gc = buffer.getGraphics();
+        } else {
+            this.canvas.getGraphics().drawImage(buffer, 0, 0, null);
+            gc.clearRect(0, 0, screen_width, screen_height);
+        }
+    }
+    
+    
     // repaint
     @Override
     public void paint(Graphics g) {
         if (buffer == null) {
             buffer = createImage(screen_width, screen_height);
             gc = buffer.getGraphics();
-
         } else {
             g.drawImage(buffer, 0, 0, null);
             gc.clearRect(0, 0, screen_width, screen_height);
-
         }
     }
 
     public Graphics graphicsContext() {
+        
         return gc;
     }
 
@@ -95,12 +108,17 @@ public class Window extends JFrame {
 
         @Override
         public void keyTyped(KeyEvent ke) {
-
+            
         }
 
         @Override
         public void keyPressed(KeyEvent ke) {
-            switch (ke.getExtendedKeyCode()) {
+            
+            if(ke.getKeyCode() == KeyEvent.VK_ESCAPE){
+                System.exit(0);
+            }
+            
+            switch (ke.getKeyCode()) {
                 case KeyEvent.VK_A://posicion 0 input
                     if ((input & 0b1) == 0) {
                         ++input;
@@ -121,6 +139,11 @@ public class Window extends JFrame {
                         input += 8;
                     }
                     break;
+                case KeyEvent.VK_SPACE://posicion 5
+                    if ((input & 0b10000) == 0) {
+                        input += 16;
+                    }
+                    break;
             }
         }
 
@@ -138,6 +161,9 @@ public class Window extends JFrame {
                     break;
                 case KeyEvent.VK_S://posicion 4
                     input -= 8;
+                    break;
+                case KeyEvent.VK_SPACE:
+                    input -= 16;
                     break;
             }
         }

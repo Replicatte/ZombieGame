@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import projectzombie.fisicas.ChrPhys;
+import projectzombie.game.Camara;
 import projectzombie.utils.Maths;
 import projectzombie.game.Game;
 import projectzombie.motor.ImageManager;
@@ -23,7 +24,7 @@ import projectzombie.utils.Animation;
 public class Character extends GameObject {
 
     private ChrPhys fisicas;
-
+    private byte cooldown;
     public Character(Rectangle colisionBox, Rectangle postionBox, byte estadoObjecto) {
         /*
         *   POSIBLES ESTADOS DE PERSONAJE(V2):
@@ -57,9 +58,10 @@ public class Character extends GameObject {
         fisicas = new ChrPhys();
         fisicas.velX = 0;
         fisicas.velY = 0;
-
+        this.cooldown = 0;
     }
-    private static final int pasoUpdate = (10 * Window.resize);
+    
+    private static final double pasoUpdate = (10 * Window.resize);
 
     private byte actualFrame = 0;
     private byte actualGroup = 1;
@@ -87,12 +89,15 @@ public class Character extends GameObject {
         }
     }
 
+    @Override
     public void update(short input) {
 
         if ((0b1000000000000000 & input) == 0b1000000000000000) {
-
+            if(this.cooldown != 0) {
+                --this.cooldown;
+                System.out.println("" + this.cooldown);
+            }
             switch ((0b0000000000001111 & input)) {
-
                 //Se mueve Izquierda
                 case 0b1101:
                 case 0b1:
@@ -103,10 +108,8 @@ public class Character extends GameObject {
                         actualFrame = 40;
                         actualGroup = 30;
                         baseFrame = 40;
-
                     }
                     break;
-
                 //Se mueve Derecha    
                 case 0b1110:
                 case 0b10:
@@ -120,7 +123,6 @@ public class Character extends GameObject {
 
                     }
                     break;
-
                 //Se mueve Up    
                 case 0b111:
                 case 0b100:
@@ -133,7 +135,6 @@ public class Character extends GameObject {
                         baseFrame = 48;
                     }
                     break;
-
                 //Se mueve Down    
                 case 0b1011:
                 case 0b1000:
@@ -144,23 +145,19 @@ public class Character extends GameObject {
                         actualFrame = 32;
                         actualGroup = 10;
                         baseFrame = 32;
-
                     }
                     break;
-
                 //Se mueve en Izquierda - Up    
                 case 0b101:
                     fisicas.velY = (byte) (-pasoUpdate + 2);
-                    fisicas.velX = (byte) ((byte)-pasoUpdate + 2);
+                    fisicas.velX = (byte) ((byte) -pasoUpdate + 2);
                     if (actualGroup != 40) {
                         transicio = true;
                         actualFrame = 44;
                         actualGroup = 40;
                         baseFrame = 44;
-
                     }
                     break;
-
                 //Se mueve en Izquierda - Down
                 case 0b1001:
                     fisicas.velY = (byte) (pasoUpdate - 1);
@@ -170,36 +167,31 @@ public class Character extends GameObject {
                         actualFrame = 36;
                         actualGroup = 20;
                         baseFrame = 36;
-
                     }
                     break;
-
                 //Se mueve en Derecha - Up    
                 case 0b110:
-                    fisicas.velY = (byte) (-pasoUpdate+2);
-                    fisicas.velX = (byte) ((byte)+pasoUpdate-2);
+                    fisicas.velY = (byte) (-pasoUpdate + 2);
+                    fisicas.velX = (byte) ((byte) +pasoUpdate - 2);
                     if (actualGroup != 60) {
                         transicio = true;
                         actualFrame = 52;
                         actualGroup = 60;
                         baseFrame = 52;
-
                     }
                     break;
-
                 //Se mueve en Derecha - Down    
                 case 0b1010:
-                    fisicas.velY = (byte) (+pasoUpdate-1);
-                    fisicas.velX = (byte) (+pasoUpdate-1);
+                    fisicas.velY = (byte) (+pasoUpdate - 1);
+                    fisicas.velX = (byte) (+pasoUpdate - 1);
                     if (actualGroup != 80) {
                         transicio = true;
                         actualFrame = 60;
                         actualGroup = 80;
                         baseFrame = 60;
-
                     }
-                    break;
-
+                    break;    
+                    
                 //No se Mueve nada    
                 case 0b11:
                 case 0b1100:
@@ -275,6 +267,83 @@ public class Character extends GameObject {
                     fisicas.velY = Maths.normalize(fisicas.velY);
                     break;
             }
+            
+            if(this.cooldown == 0 && (input & 0b10000) >> 4 == 1) {
+                for(int i = 0; i < Projectile.VectorProyectiles.length; ++i) {
+                    if(Projectile.VectorProyectiles[i].baseFrame == -1) {
+                        this.cooldown = (byte) 20;
+                       
+                        Projectile.VectorProyectiles[i].baseFrame = 0;
+                        Projectile.VectorProyectiles[i].setLocation(this.positionBox.x, this.positionBox.y);
+                        
+                        
+                        /*
+        *   POSIBLES ESTADOS DE PERSONAJE(V2):
+        *
+        *   -static FRONT   -> 0    agrupados en 1
+        *   -static LB      -> 4    agrupados en 2
+        *   -static LEFT    -> 8    agrupados en 3
+        *   -static LT      -> 12   agrupados en 4
+        *   -static BACK    -> 16   agrupados en 5
+        *   -static RT      -> 20   agrupados en 6
+        *   -static RIGHT   -> 24   agrupados en 7
+        *   -static RB      -> 28   agrupados en 8
+        *
+        *
+        *
+        *   -moving FRONT   -> 32   agrupados en 10
+        *   -moving LB      -> 36   agrupados en 20
+        *   -moving LEFT    -> 40   agrupados en 30
+        *   -moving LT      -> 44   agrupados en 40
+        *   -moving BACK    -> 48   agrupados en 50
+        *   -moving RT      -> 52   agrupados en 60
+        *   -moving RIGHT   -> 56   agrupados en 70
+        *   -moving RB      -> 60   agrupados en 80
+        
+        //animaciones hasta pos 64-1
+        *.........................
+         */
+                        
+                        
+                        switch(this.baseFrame) {
+                            case 0:
+                            case 32:
+                                Projectile.VectorProyectiles[i].setPhysics((byte)0, (byte)0, (byte)0, (byte)1);
+                                break;
+                            case 4:
+                            case 36:
+                                Projectile.VectorProyectiles[i].setPhysics((byte)0, (byte)0, (byte)-1, (byte)1);
+                                break;
+                            case 8:
+                            case 40:
+                                Projectile.VectorProyectiles[i].setPhysics((byte)0, (byte)0, (byte)-1, (byte)0);
+                                break;    
+                            case 12:
+                            case 44:
+                                Projectile.VectorProyectiles[i].setPhysics((byte)0, (byte)0, (byte)-1, (byte)-1);
+                                break;
+                            case 16:
+                            case 48:
+                                Projectile.VectorProyectiles[i].setPhysics((byte)0, (byte)0, (byte)0, (byte)-1);
+                                break;    
+                            case 20:
+                            case 52:
+                                Projectile.VectorProyectiles[i].setPhysics((byte)0, (byte)0, (byte)1, (byte)-1);
+                                break;
+                            case 24:
+                            case 56:
+                                Projectile.VectorProyectiles[i].setPhysics((byte)0, (byte)0, (byte)1, (byte)0);
+                                break;
+                            case 28: 
+                            case 60:
+                                Projectile.VectorProyectiles[i].setPhysics((byte)0, (byte)0, (byte)1, (byte)1);
+                                break;    
+                        }
+                        break;
+                    }
+                }                
+            }
+            
             setLocation(this.positionBox.x += fisicas.velX, this.positionBox.y += fisicas.velY);
         } else {
             baseFrame = 0;
@@ -295,17 +364,15 @@ public class Character extends GameObject {
     @Override
     public void render() {
         if (ImageManager.allImages != null) {
-
-            if (Game.contextoGrafico != null) {
-                Game.contextoGrafico.drawImage(ImageManager.allImages[actualFrame], positionBox.x, positionBox.y, null);
-                nextFrame();
-            }
+            Game.contextoGrafico.drawImage(ImageManager.allImages[actualFrame], positionBox.x - Camara.offsetX,
+                    positionBox.y - Camara.offsetY, null);
+            nextFrame();
         }
     }
 
     @Override
     public void renderTest(Graphics gc) {
-        gc.setColor(Color.BLUE);
+        //gc.setColor(Color.BLUE);
         //drawingTest(gc);
         gc.fillRect(positionBox.x, positionBox.y, positionBox.width, positionBox.height);
         if (baseFrame == 0 || baseFrame == 16 || baseFrame == 20) //left

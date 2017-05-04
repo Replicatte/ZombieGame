@@ -33,11 +33,17 @@ public class GameInit {
         ImageManager.generateImages();
 
         ArrayList<GameObject> ago = new ArrayList<>();
-
+        //Inicialización del Vector de Proyectiles
+        for(int i = 0; i < Projectile.VectorProyectiles.length; ++i) {
+            Projectile.VectorProyectiles[i] = new Projectile(new Rectangle(10,10), new Rectangle(0,0,10,10), 
+                                                (byte)-1);
+        }
+        
         //Creación de GameObject y pasarselos a GAME
         Character chara = new Character(new Rectangle(50, 50),
                 new Rectangle(Window.screen_width >> 1,
                         Window.screen_height >> 1, 64, 64), (byte) 0);
+        
 
         Zombie zombie1 = new Zombie(new Rectangle(50, 50),
                 new Rectangle(100, 200, 64, 64), (byte) 0);
@@ -56,7 +62,12 @@ public class GameInit {
         ago.add(decor2);
         ago.add(chara);
         ago.add(zombie1);
+        for(int i = 0; i < Projectile.VectorProyectiles.length; ++i) {
+            ago.add(Projectile.VectorProyectiles[i]);
+        }
 
+        //Asignación del foco a la camara
+        Camara.setFocus(chara.getPosition());
         //Creación de la partida -> bucle -> START
         Game juego = new Game(contextoGrafico, ago, w);
 

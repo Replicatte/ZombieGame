@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import projectzombie.fisicas.ChrPhys;
+import projectzombie.game.Camara;
 import projectzombie.motor.Window;
 
 /**
@@ -35,10 +36,8 @@ public class Zombie extends Enemie {
 
     @Override
     public void renderTest(Graphics gc) {
-        if(gc != null) {
-            gc.setColor(Color.GREEN);
-            gc.fillRect(this.positionBox.x, this.positionBox.y, this.positionBox.width, this.positionBox.height);
-        }
+        gc.setColor(Color.GREEN);
+        gc.fillRect(this.positionBox.x - Camara.offsetX, this.positionBox.y - Camara.offsetY, this.positionBox.width, this.positionBox.height);
     }
     
     int modX = 1;

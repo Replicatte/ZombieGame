@@ -27,7 +27,7 @@ public class Maths {
      * @return
      */
     public static byte normalize(byte valor) {
-        int frenadoValue = 2 * Window.resize;
+        double frenadoValue = 2 * Window.resize;
 
         if (valor > 0) {
             valor -= frenadoValue;

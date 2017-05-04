@@ -34,16 +34,22 @@ public class Game {
     
     
     public void renderAll() {
-        contextoGrafico = window.graphicsContext();
-        try {
-            for (GameObject obj : objetosJuego) {
-                if (obj instanceof Character){ obj.render();
-                }else obj.renderTest(contextoGrafico);
+        if((contextoGrafico = window.graphicsContext()) != null){
+            try {
+                Camara.actualOffset();
+                for (GameObject obj : objetosJuego) {
+                    if (obj instanceof Character){
+                        obj.render();
+                    }else {
+                        obj.renderTest(contextoGrafico);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        window.repaint();        
+        window.repaint(); 
+        
     }
     
     

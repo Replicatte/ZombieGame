@@ -13,4 +13,6 @@ public class ChrPhys {
     public byte velX;
     public byte velY;
     
+    public byte accelX;
+    public byte accelY;
 }

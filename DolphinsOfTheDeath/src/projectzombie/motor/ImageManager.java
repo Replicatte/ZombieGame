@@ -27,7 +27,7 @@ public class ImageManager {
 
 //    private final static int IMG_RESIZE = 2;
 //    private final static int IMG_SIZE = 64 * IMG_RESIZE;
-    private final static  double TARGET_SIZE =300;
+    private final static int TARGET_SIZE = 128;
 
     private static int IMG_SIZE;
 
@@ -36,7 +36,7 @@ public class ImageManager {
     public static void generateImages() {
         allImages = new Image[NUM_IMAGENES];
 
-        IMG_SIZE = (int) (TARGET_SIZE * Window.resize);
+        IMG_SIZE = (int)Math.round(TARGET_SIZE * Window.resize);
 
         //FRONT
         allImages[0] = loadImg("recursos/prototipo/00_STATICS/FRONT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
