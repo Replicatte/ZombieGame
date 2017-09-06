@@ -8,6 +8,7 @@ package projectzombie.gameobjects;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import projectzombie.motor.Window;
 
 
 /**
@@ -16,6 +17,12 @@ import java.awt.Rectangle;
  */
 public class Enemie extends GameObject {
 
+    protected static final double pasoUpdate = (10 * Window.resize);
+    protected byte actualFrame = 0;
+    protected byte actualGroup = 1;
+    protected boolean transicio = false;
+    
+    
     public Enemie(Rectangle colisionBox, Rectangle postionBox, byte estadoObjecto) {
         super(colisionBox, postionBox, estadoObjecto);
         this.hasColision = 1;

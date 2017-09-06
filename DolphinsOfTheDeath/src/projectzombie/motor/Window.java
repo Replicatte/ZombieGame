@@ -25,7 +25,7 @@ public class Window extends JFrame {
 
     public static short input = (short) 0b1000000000000000;
     
-    private JPanel canvas;
+    private CustomPane canvas;
     public static Graphics gc;
 
     public static int screen_width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -57,9 +57,9 @@ public class Window extends JFrame {
         System.setProperty("sun.java2d.opengl", "true");
 
         this.setTitle("ZombieProject");
-        this.canvas = new JPanel();
-        setBackground(Color.yellow);
+        this.canvas = new CustomPane();
         setContentPane(this.canvas);
+        
         setUndecorated(true);
         resize = ((double)screen_width) / target_width;
         setSize(Toolkit.getDefaultToolkit().getScreenSize());
@@ -69,13 +69,15 @@ public class Window extends JFrame {
         //buffer = createImage(SCREEN_WIDTH,SCREEN_HEIGHT);
     }
 
-    @Override
+
+
+    /*@Override
     public void update(Graphics g) {
         paint(g);
         //actualizar();
-    }
+    }*/
 
-    public void actualizar() {
+    /*public void actualizar() {
         //this.canvas.getGraphics()
         if (buffer == null) {
             buffer = createImage(screen_width, screen_height);
@@ -84,12 +86,17 @@ public class Window extends JFrame {
             this.canvas.getGraphics().drawImage(buffer, 0, 0, null);
             gc.clearRect(0, 0, screen_width, screen_height);
         }
-    }
+    }*/
     
+    /*public void actualizar(){
+        this.canvas.repaint();
+    }
+    */
     
     // repaint
-    @Override
+    /*@Override
     public void paint(Graphics g) {
+       
         if (buffer == null) {
             buffer = createImage(screen_width, screen_height);
             gc = buffer.getGraphics();
@@ -97,7 +104,7 @@ public class Window extends JFrame {
             g.drawImage(buffer, 0, 0, null);
             gc.clearRect(0, 0, screen_width, screen_height);
         }
-    }
+    }*/
 
     public Graphics graphicsContext() {
         
@@ -168,4 +175,29 @@ public class Window extends JFrame {
             }
         }
     }
+    
+    class CustomPane extends JPanel {
+        
+        @Override
+        public void update(Graphics g) {
+            paintComponent(g);
+            //actualizar();
+        }
+
+        @Override
+        public void paintComponent(Graphics g) {
+            if (buffer == null) {
+                buffer = createImage(screen_width, screen_height);
+                gc = buffer.getGraphics();
+            } else {
+                g.drawImage(buffer, 0, 0, null);
+                gc.clearRect(0, 0, screen_width, screen_height);
+            }
+        }
+        
+        
+        
+    }
+    
+    
 }

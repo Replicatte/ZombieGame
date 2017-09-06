@@ -34,9 +34,7 @@ public class Animation {
             }
             return frameAnterior;
         }
-
     }
-
     private static byte resetTick = 0;
 
     // Este metodo se encarga de el delay del cambio de la vuelta a estadoBase.
@@ -53,11 +51,9 @@ public class Animation {
             if (resetTick > 10) {
                 resetTick = 0;
                 return estadoBase;
-
             }
             return frameAnterior;
         }
-        
     }
 
 }

@@ -38,7 +38,7 @@ public class Game {
             try {
                 Camara.actualOffset();
                 for (GameObject obj : objetosJuego) {
-                    if (obj instanceof Character){
+                    if (obj instanceof Character || obj instanceof Zombie){
                         obj.render();
                     }else {
                         obj.renderTest(contextoGrafico);

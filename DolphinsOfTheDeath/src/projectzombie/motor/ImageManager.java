@@ -7,11 +7,13 @@ package projectzombie.motor;
 
 import java.awt.Image;
 import static java.awt.Image.SCALE_DEFAULT;
-import java.io.File;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+
+import projectzombie.Main;
 
 /**
  * Almacena imagenes y las pasa junto al constructor de los GameObjects para un
@@ -27,7 +29,7 @@ public class ImageManager {
 
 //    private final static int IMG_RESIZE = 2;
 //    private final static int IMG_SIZE = 64 * IMG_RESIZE;
-    private final static int TARGET_SIZE = 128;
+    private final static int TARGET_SIZE = 128*2;
 
     private static int IMG_SIZE;
 
@@ -38,6 +40,9 @@ public class ImageManager {
 
         IMG_SIZE = (int)Math.round(TARGET_SIZE * Window.resize);
 
+        spriteLoader("Zombie");
+        
+        /*
         //FRONT
         allImages[0] = loadImg("recursos/prototipo/00_STATICS/FRONT_STAY/0000.png", IMG_SIZE, IMG_SIZE, true, false);
         allImages[1] = loadImg("recursos/prototipo/00_STATICS/FRONT_STAY/0010.png", IMG_SIZE, IMG_SIZE, true, false);
@@ -134,11 +139,64 @@ public class ImageManager {
         allImages[61] = loadImg("recursos/prototipo/01_ANIMATIONS/RB_WALK/0010.png", IMG_SIZE, IMG_SIZE, true, false);
         allImages[62] = loadImg("recursos/prototipo/01_ANIMATIONS/RB_WALK/0020.png", IMG_SIZE, IMG_SIZE, true, false);
         allImages[63] = loadImg("recursos/prototipo/01_ANIMATIONS/RB_WALK/0030.png", IMG_SIZE, IMG_SIZE, true, false);
+    */
+    
     }
 
+    private static void spriteLoader(String sujeto) {
+        //recursos/NOMBREOBJETO/ESTAT
+        String ruta;
+        for(int i = 0; i < 2; ++i) {
+            for(int j = 0; j < 8; ++j) {
+                ruta = "recursos/" + sujeto + (i==0?"/Idle/":"/walk/");
+                switch(j){
+                    case 0:
+                        ruta += "BOT_";
+                        break;
+                    case 1:
+                        ruta += "LB_";
+                        break;
+                    case 2:
+                        ruta += "LEFT_";
+                        break;
+                    case 3:
+                        ruta += "LT_";
+                        break;
+                    case 4:
+                        ruta += "TOP_";
+                        break;
+                    case 5:
+                        ruta += "RT_";
+                        break;
+                    case 6:
+                        ruta += "RIGHT_";
+                        break;
+                    case 7:
+                        ruta += "RB_";
+                        break;                 
+                }
+                
+                ruta += "00";
+                
+                allImages[i*32 + j*4] = loadImg(ruta + "00.png", IMG_SIZE, IMG_SIZE, true, false);
+                allImages[i*32 + j*4 + 1] = loadImg(ruta + "10.png", IMG_SIZE, IMG_SIZE, true, false);
+                allImages[i*32 + j*4 + 2] = loadImg(ruta + "20.png", IMG_SIZE, IMG_SIZE, true, false);
+                allImages[i*32 + j*4 + 3] = loadImg(ruta + "30.png", IMG_SIZE, IMG_SIZE, true, false);
+            }
+        }
+        
+        
+        
+        
+    }
+    
+    
+    
+    
     private static Image loadImg(String ruta, int width, int height) {
         try {
-            Image aux = ImageIO.read(new File("src/./" + ruta).getCanonicalFile());
+            //Image aux = ImageIO.read(new File("src/./" + ruta).getCanonicalFile());
+            Image aux = ImageIO.read(Main.class.getResource("../" + ruta));
             return aux.getScaledInstance(width, height, SCALE_DEFAULT);
         } catch (IOException ex) {
             System.out.println("src/../" + ruta);

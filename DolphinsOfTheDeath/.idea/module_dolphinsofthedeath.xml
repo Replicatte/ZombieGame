@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_dolphinsofthedeath" default="compile.module.dolphinsofthedeath">
+  <dirname property="module.dolphinsofthedeath.basedir" file="${ant.file.module_dolphinsofthedeath}"/>
+  
+  <property name="module.jdk.home.dolphinsofthedeath" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.dolphinsofthedeath" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.dolphinsofthedeath" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.dolphinsofthedeath" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="dolphinsofthedeath.output.dir" value="${module.dolphinsofthedeath.basedir}/../out/production/DolphinsOfTheDeath"/>
+  <property name="dolphinsofthedeath.testoutput.dir" value="${module.dolphinsofthedeath.basedir}/../out/test/DolphinsOfTheDeath"/>
+  
+  <path id="dolphinsofthedeath.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="dolphinsofthedeath.module.production.classpath">
+    <path refid="${module.jdk.classpath.dolphinsofthedeath}"/>
+  </path>
+  
+  <path id="dolphinsofthedeath.runtime.production.module.classpath">
+    <pathelement location="${dolphinsofthedeath.output.dir}"/>
+  </path>
+  
+  <path id="dolphinsofthedeath.module.classpath">
+    <path refid="${module.jdk.classpath.dolphinsofthedeath}"/>
+    <pathelement location="${dolphinsofthedeath.output.dir}"/>
+  </path>
+  
+  <path id="dolphinsofthedeath.runtime.module.classpath">
+    <pathelement location="${dolphinsofthedeath.testoutput.dir}"/>
+    <pathelement location="${dolphinsofthedeath.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.dolphinsofthedeath">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.dolphinsofthedeath">
+    <patternset refid="excluded.from.module.dolphinsofthedeath"/>
+  </patternset>
+  
+  <path id="dolphinsofthedeath.module.sourcepath">
+    <dirset dir="${module.dolphinsofthedeath.basedir}/../../DolphinsOfTheDeath">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.dolphinsofthedeath" depends="compile.module.dolphinsofthedeath.production,compile.module.dolphinsofthedeath.tests" description="Compile module DolphinsOfTheDeath"/>
+  
+  <target name="compile.module.dolphinsofthedeath.production" depends="register.custom.compilers" description="Compile module DolphinsOfTheDeath; production classes">
+    <mkdir dir="${dolphinsofthedeath.output.dir}"/>
+    <javac2 destdir="${dolphinsofthedeath.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.dolphinsofthedeath}/javac">
+      <compilerarg line="${compiler.args.dolphinsofthedeath}"/>
+      <bootclasspath refid="dolphinsofthedeath.module.bootclasspath"/>
+      <classpath refid="dolphinsofthedeath.module.production.classpath"/>
+      <src refid="dolphinsofthedeath.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.dolphinsofthedeath"/>
+    </javac2>
+    
+    <copy todir="${dolphinsofthedeath.output.dir}">
+      <fileset dir="${module.dolphinsofthedeath.basedir}/../src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.dolphinsofthedeath.tests" depends="register.custom.compilers,compile.module.dolphinsofthedeath.production" description="compile module DolphinsOfTheDeath; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.dolphinsofthedeath" description="cleanup module">
+    <delete dir="${dolphinsofthedeath.output.dir}"/>
+    <delete dir="${dolphinsofthedeath.testoutput.dir}"/>
+  </target>
+</project>
